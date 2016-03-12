@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/12 18:17:47 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/12 18:33:49 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*get_env_content(char **env, char *str)
 	char	*tmp;
 	char	*content;
 
+	printf("str in get_env = |%s|\n", str); // TEST
+	printf("env in get_env = |%s|\n", *env); // TEST
 	if (env && *env)
 	{
 		i = 0;
@@ -31,7 +33,7 @@ char	*get_env_content(char **env, char *str)
 			if (!ft_strncmp(env[i], str, ft_strlen(str)))
 			{
 				start = ft_strlen(str) + 1;
-				tmp = ft_strsub(env[i], start, ft_strlen(env[i] - start));
+				tmp = ft_strsub(env[i], start, ft_strlen(env[i]) - start);
 				content = ft_strdup(tmp);
 				ft_strdel(&tmp);
 				return (content);
@@ -53,17 +55,15 @@ void	prompt(char **env)
 	char cwd[100];
 
 	getwd(cwd);
-	printf("env in prompt = |%s|\n", *env); // TEST
-	printf("cwd in prompt = |%s|\n", cwd); // TEST
+//	printf("env in prompt = |%s|\n", *env); // TEST
+//	printf("cwd in prompt = |%s|\n", cwd); // TEST
 	home = get_env_content(env, "HOME");
 	printf("home in prompt = |%s|\n", home); // TEST
 	user = get_env_content(env, "USER");
 	printf("user in prompt = |%s|\n", user); // TEST
 	if (user)
 		ft_putstr(user);
-	else
-		ft_putstr("no user");
-	ft_putchar(' ');
+	ft_putstr(" in ");
 	if (home && ft_strstr(cwd, home))
 	{
 		ft_putchar('~');
