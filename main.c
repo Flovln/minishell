@@ -6,127 +6,135 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/12 18:33:49 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/13 16:53:07 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-* * Function for getting content in env variables
-*/
+ * * Function for splitting PATH string and save Paths as double array
+ */
 
-char	*get_env_content(char **env, char *str)
+char	**split_path(char **env, char **cmd)
 {
-	int		i;
-	int		start;
-	char	*tmp;
-	char	*content;
+	char	*path_str_cpy;
+	char	**path;
+	int		cmd_nb;
 
-	printf("str in get_env = |%s|\n", str); // TEST
-	printf("env in get_env = |%s|\n", *env); // TEST
-	if (env && *env)
+	path_str_cpy = NULL;
+	path = NULL;
+	cmd_nb = ft_tablen(cmd);
+	if (cmd_nb)
 	{
-		i = 0;
-		while (env[i])
-		{
-			if (!ft_strncmp(env[i], str, ft_strlen(str)))
-			{
-				start = ft_strlen(str) + 1;
-				tmp = ft_strsub(env[i], start, ft_strlen(env[i]) - start);
-				content = ft_strdup(tmp);
-				ft_strdel(&tmp);
-				return (content);
-			}
-			i++;
-		}
-	}
-	return (NULL);
-}
-
-/*
-* * Pimped Prompt oh_my_zsh style
-*/
-
-void	prompt(char **env)
-{
-	char *home;
-	char *user;
-	char cwd[100];
-
-	getwd(cwd);
-//	printf("env in prompt = |%s|\n", *env); // TEST
-//	printf("cwd in prompt = |%s|\n", cwd); // TEST
-	home = get_env_content(env, "HOME");
-	printf("home in prompt = |%s|\n", home); // TEST
-	user = get_env_content(env, "USER");
-	printf("user in prompt = |%s|\n", user); // TEST
-	if (user)
-		ft_putstr(user);
-	ft_putstr(" in ");
-	if (home && ft_strstr(cwd, home))
-	{
-		ft_putchar('~');
-		ft_putstr(ft_strstr(cwd, home) + ft_strlen(home));
+		path_str_cpy = get_env_content(env, "PATH");
+		if (path_str_cpy)
+			path = ft_strsplit(path_str_cpy, ':');
+		else
+			path = NULL;
+		return (path);
 	}
 	else
-		ft_putstr(cwd);
-	write(1, " \n$> ", 5);
-	ft_strdel(&home);
-	ft_strdel(&user);
+		return (NULL);
 }
 
 /*
-* * Function Duplicating env
-*/
+ * * Function command managing
+ */
 
-char	**tab_dup(char **tab)
+void	exe_cmd(char **env, char **cmd, char *cmd_path)
 {
-	int		i;
-	int		len;
-	char	**tmp;
+	char	*tmp;
+	pid_t	pid;
 
-	if (tab)
+	pid = fork();
+	if (pid > 0) // father waits for his child process to be done to exit
+		wait(0);
+	else if (pid == 0) // child
+	{
+		tmp = ft_strjoin(cmd_path, "/");
+		ft_strdel(&cmd_path);
+		cmd_path = ft_strjoin(tmp, cmd[0]);
+		ft_strdel(&tmp);
+		execve(cmd_path, cmd, env);
+	}
+	else
+		ft_putendl("exe_cmd() error");
+}
+
+/*
+ * * Function getting cmd path
+ */ 
+
+char	*get_cmd_path(char *cmd, char **path)
+{
+	int				i;
+	int				j;
+	DIR				*dir;
+	struct dirent	*ret;
+
+	if (cmd && path)
 	{
 		i = 0;
-		len = ft_tablen(tab);
-		if (!(tmp = (char **)malloc(sizeof(char *) * (len + 1))))
-			return (NULL);
-		while (i < len)
+		j = 0;
+		while (path[i])
 		{
-			tmp[i] = ft_strdup(tab[i]);
+			if ((dir = opendir(path[i])))
+				while ((ret = readdir(dir)))
+					if (!ft_strcmp(ret->d_name, cmd))
+					{
+						closedir(dir);
+						return (ft_strdup(path[i]));
+					}
+			closedir(dir);
 			i++;
 		}
-		tmp[i] = NULL;
-		return (tmp);
 	}
+	ft_putendl("could not find cmd path");
 	return (NULL);
 }
 
 int		main(int ac, char **av, char **env)
 {
-	char	**cpy_env;
+	char	**env_cpy;
 	char	*line;
-//	pid_t 	pid;
+	char	**cmd;
+	char	**path_cpy;
+	char	*cmd_path; //
 
-//	pid = fork();
-	cpy_env = NULL;
+	cmd_path = NULL; //
+	env_cpy = NULL;
 	av = NULL;
-	cpy_env = tab_dup(env);
+	env_cpy = tab_dup(env);
 	if (ac == 1)
 	{
 		while (1)
 		{
-			prompt(cpy_env);
+			prompt(env_cpy);
 			if (get_next_line(0, &line) == 1)
 			{
-//				ft_putendl("Test Prompt");
-//				printf("line in Gnl -> |%s|\n", line);
+				/* get commands enter through stdin in prompt and save them in **cmd */
+				cmd = ft_strsplit(line, ' ');
+				ft_strdel(&line);
+				path_cpy = split_path(env, cmd);
 			}
-			if (ft_strcmp(line, "exit") == 0)
+			if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 			{
-//				ft_putendl("Test Exit");
+				printf("env_cpy freed -> |%s|\n", *env_cpy);
+				ft_strdel(env_cpy);
+				printf("cmd freed -> |%s|\n", *cmd);
+				ft_strdel(cmd);
+				printf("path_cpy freed -> |%s|\n", *path_cpy);
+				ft_strdel(path_cpy);
 				break ;
+			}
+			else
+			{
+				/* find and execute cmd entered through stdin */
+				if ((cmd_path = get_cmd_path(cmd[0], path_cpy)) != NULL)
+					exe_cmd(env, cmd, cmd_path);
+				else
+					ft_putendl("--- Command not found ---");
 			}
 		}
 	}
