@@ -6,13 +6,13 @@
 #    By: fviolin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/29 10:22:18 by fviolin           #+#    #+#              #
-#    Updated: 2016/03/13 15:23:00 by fviolin          ###   ########.fr        #
+#    Updated: 2016/03/14 11:41:48 by fviolin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c prompt.c environment.c
+SRC = main.c prompt.c environment.c cmd.c
 
 OBJ = $(SRC:.c=.o)
 LIB = ./libft/libft.a
