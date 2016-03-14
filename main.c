@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/14 12:55:18 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/14 16:46:42 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		main(int ac, char **av, char **env)
 				free_ptr(env_cpy, cmd, path_cpy);
 				break ;
 			}
+			else if (is_builtin(cmd[0]) > 0)
+				env_cpy = do_builtin(cmd, env_cpy);
 			else
 				exe_cmd(env, cmd, path_cpy);
 		}

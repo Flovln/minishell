@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/14 14:06:22 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/14 18:15:28 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@ char	*get_cmd_path(char *cmd, char **path)
 	DIR				*dir;
 	struct dirent	*ret;
 
+/* open and read each dir saved in **path until cmd saved in *cmd matches */
 	if (cmd && path)
 	{
 		i = 0;
 		j = 0;
 		while (path[i])
 		{
-	/* open and read each dir saved in **path until cmd saved in *cmd matches */
 			if ((dir = opendir(path[i])))
 				while ((ret = readdir(dir)))
 					if (!ft_strcmp(ret->d_name, cmd))
 					{
 						closedir(dir);
-						printf("return path[i] = |%s|\n", path[i]);
 						return (ft_strdup(path[i]));
 					}
 			closedir(dir);
