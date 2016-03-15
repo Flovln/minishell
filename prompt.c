@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/13 15:09:50 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 16:06:17 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	prompt(char **env)
 	home = get_env_content(env, "HOME");
 	user = get_env_content(env, "USER");
 	if (user)
+	{
+		ft_putstr("# ");
 		ft_putstr(user);
+	}
 	ft_putstr(" in ");
 	if (home && ft_strstr(buf, home)) // si home est contenu dans buf
 	{

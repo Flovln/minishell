@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 11:55:42 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 14:08:57 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,10 @@ char			**add_str(char **env, char **new_env, char **cmd, int len)
 }
 
 /*
- * * checking if var already exists is in env
- */
-
-int				is_include(char **env, char *cmd)
-{
-	int i;
-	int	len;
-
-	i = 0;
-	len = ft_strlen(cmd);
-	while (env && env[i])
-	{
-		if (!ft_strncmp(env[i], cmd, len))
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-/*
  * * modify str if var already exists in env
  */
 
-static char		**change_str(char **env, char **cmd, int i, int len)
+static char		**update_str(char **env, char **cmd, int i, int len)
 {
 	char *tmp;
 
@@ -88,13 +68,13 @@ char			**do_setenv(char **env, char **cmd)
 
 	if (ft_tablen(cmd) != 3)
 	{
-		ft_putendl_fd("setenv takes 2 parameters", 2);
+		ft_putendl_fd("setenv requires 2 parameters", 2);
 		return (env);
 	}
 	else
 	{
 		len = ft_tablen(env);
-		if (( i = is_include(env, cmd[1])) == len || len == 0)
+		if ((i = is_include(env, cmd[1])) == len || len == 0)
 		{
 			if (!(new_env = (char **)malloc(sizeof(char *) * (len + 2))))
 				return (NULL);
@@ -102,9 +82,8 @@ char			**do_setenv(char **env, char **cmd)
 			new_env = add_str(env, new_env, cmd, len);
 			return (new_env);
 		}
-		return (change_str(env, cmd, i, len));
-	//	new_env = change_str(env, cmd, i, len);
-//		return (new_env);
+		new_env = update_str(env, cmd, i, len);
+		return (new_env);
 	}
 	free_tab(env);
 	return (NULL);

@@ -6,11 +6,33 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 11:56:54 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 14:44:59 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+ * * checks if var passed as parameter already exists in env / 
+ * * i is incremented so we know were to replace an existing Var (updated) /
+ * * or add new one at the end
+ */
+
+int		is_include(char **env, char *cmd)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(cmd);
+	while (env && env[i])
+	{
+		if (!ft_strncmp(env[i], cmd, len))
+			break ;
+		i++;
+	}
+	return (i);
+}
 
 /*
  * * Function Duplicating tab

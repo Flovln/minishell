@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 09:08:45 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 15:50:21 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * * Function parsing PATH string
  */
 
-char	**parse_path(char **env, char **cmd)
+char			**parse_path(char **env, char **cmd)
 {
 	char	*path_str;
 	char	**path;
@@ -38,45 +38,63 @@ char	**parse_path(char **env, char **cmd)
 		return (NULL);
 }
 
-void	free_ptr(char **env_cpy, char **cmd, char **path_cpy)
+/*
+ * * FREE Function
+ */
+
+void			free_ptr(char **env_cpy, char **cmd, char **path_cpy)
 {
 	ft_strdel(env_cpy);
 	ft_strdel(cmd);
 	ft_strdel(path_cpy);
 }
 
-int		main(int ac, char **av, char **env)
+/*
+ * * Function -> parse cmd entered as arguments / GNL / builtin + cmd control
+ */
+
+static void		manage_args(char **env, char **cmd, char **path, char *line)
+{
+	while (1)
+	{
+		prompt(env);
+		if (get_next_line(0, &line) == 1)
+		{
+			/* parse commands entered through stdin and save them in **cmd */
+			cmd = ft_strsplit(line, ' ');
+			ft_strdel(&line);
+			path = parse_path(env, cmd);
+		}
+		if (ft_tablen(cmd))
+		{
+			if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
+			{
+				free_ptr(env, cmd, path);
+				break ;
+			}
+			else if (is_builtin(cmd[0]) > 0)
+				env = do_builtin(cmd, env);
+			else
+				exe_cmd(env, cmd, path);
+		}
+		ft_putstr("\n");
+	}
+}
+
+int				main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
 	char	*line;
-	char	**parse_cmd;
+	char	**cmd;
 	char	**path_cpy;
 
 	env_cpy = NULL;
 	av = NULL;
+	cmd = NULL; //
+	path_cpy = NULL; //
+	line = NULL; //
 	env_cpy = tab_dup(env);
 	if (ac == 1)
-	{
-		while (1)
-		{
-			prompt(env_cpy);
-			if (get_next_line(0, &line) == 1)
-			{
-				/* parse commands entered through stdin and save them in **cmd */
-				parse_cmd = ft_strsplit(line, ' ');
-				ft_strdel(&line);
-				path_cpy = parse_path(env_cpy, parse_cmd);
-			}
-			if (!(ft_strcmp(parse_cmd[0], "exit")) && ft_tablen(parse_cmd) == 1)
-			{
-				free_ptr(env_cpy, parse_cmd, path_cpy);
-				break ;
-			}
-			else if (is_builtin(parse_cmd[0]) > 0)
-				env_cpy = do_builtin(parse_cmd, env_cpy);
-			else
-				exe_cmd(env, parse_cmd, path_cpy);
-		}
-	}
+		manage_args(env_cpy, cmd, path_cpy, line);
 	return (0);
 }
