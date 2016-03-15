@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:45:40 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 12:13:28 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 17:13:20 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,6 @@ int		is_builtin(char *cmd)
 	else
 		return (0);
 }
-
-/*
- * * cd command
- */
-
-char	**do_cd(char **cmd, char **env)
-{
-	DIR				*dir;
-	struct stat		st;
-	char			*home;
-
-	dir = NULL;
-	if (cmd[1])
-	{
-		dir = opendir(cmd[1]);
-		if (stat(cmd[1], &st) == -1)
-			ft_putendl_fd(ft_strjoin("cd: No such file or directory: ", cmd[1]), 2);
-		else if (!(S_ISDIR(st.st_mode)))
-			ft_putendl_fd(ft_strjoin("cd: Not a directory: ", cmd[1]), 2);
-		else
-			chdir(cmd[1]);
-		if (dir)
-			closedir(dir);
-	}
-	else if (!cmd[1])
-	{
-		home = get_env_content(env, "HOME");
-		chdir(home);
-		ft_strdel(&home);
-	}
-	return (env);
-}	
 
 /*
  * * Buitin Manager

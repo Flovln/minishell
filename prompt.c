@@ -6,15 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 16:06:17 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 16:35:11 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-* * Custom Prompt oh_my_zsh inspired
-*/
 
 void	prompt(char **env)
 {
@@ -31,7 +27,7 @@ void	prompt(char **env)
 		ft_putstr(user);
 	}
 	ft_putstr(" in ");
-	if (home && ft_strstr(buf, home)) // si home est contenu dans buf
+	if (home && ft_strstr(buf, home))
 	{
 		ft_putchar('~');
 		ft_putstr(ft_strstr(buf, home) + ft_strlen(home));
