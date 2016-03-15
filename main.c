@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/14 16:46:42 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 09:08:45 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
 	char	*line;
-	char	**cmd;
+	char	**parse_cmd;
 	char	**path_cpy;
 
 	env_cpy = NULL;
@@ -63,19 +63,19 @@ int		main(int ac, char **av, char **env)
 			if (get_next_line(0, &line) == 1)
 			{
 				/* parse commands entered through stdin and save them in **cmd */
-				cmd = ft_strsplit(line, ' ');
+				parse_cmd = ft_strsplit(line, ' ');
 				ft_strdel(&line);
-				path_cpy = parse_path(env_cpy, cmd);
+				path_cpy = parse_path(env_cpy, parse_cmd);
 			}
-			if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
+			if (!(ft_strcmp(parse_cmd[0], "exit")) && ft_tablen(parse_cmd) == 1)
 			{
-				free_ptr(env_cpy, cmd, path_cpy);
+				free_ptr(env_cpy, parse_cmd, path_cpy);
 				break ;
 			}
-			else if (is_builtin(cmd[0]) > 0)
-				env_cpy = do_builtin(cmd, env_cpy);
+			else if (is_builtin(parse_cmd[0]) > 0)
+				env_cpy = do_builtin(parse_cmd, env_cpy);
 			else
-				exe_cmd(env, cmd, path_cpy);
+				exe_cmd(env, parse_cmd, path_cpy);
 		}
 	}
 	return (0);

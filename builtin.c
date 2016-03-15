@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:45:40 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/14 18:18:16 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 09:18:54 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		is_builtin(char *cmd)
 }
 
 /*
- * * cd command / To protect if env && *env == NULL
+ * * cd command
  */
 
 void	do_cd(char **cmd, char **env)
@@ -68,14 +68,19 @@ void	do_cd(char **cmd, char **env)
 char	**do_builtin(char **cmd, char **env)
 {
 	char	**new_env;
+	int		i;
 
+	i = 0;
 	new_env = NULL;
 	if (!ft_strcmp(cmd[0], "cd"))
 		do_cd(cmd, env);
-/*	else if (!ft_strcmp(cmd[0], "setenv"))
+	else if (!ft_strcmp(cmd[0], "setenv"))
+		new_env = do_setenv(env, cmd);
+//printf("new_env -> |%s|\n", new_env[i]);
+	else
 	{
-		 new_env = do_setenv(env, cmd);
-	}*/
+		new_env = do_env(env, cmd);
+	}
 //	return (new_env);
 	return (env);
 }
