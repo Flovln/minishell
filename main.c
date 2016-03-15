@@ -53,14 +53,29 @@ void			free_ptr(char **env_cpy, char **cmd, char **path_cpy)
  * * Function -> parse cmd entered as arguments / GNL / builtin + cmd control
  */
 
-static void		manage_args(char **env, char **cmd, char **path, char *line)
+static char		**manage_cmd(char **env, char **cmd, char **path)
 {
+	if (is_builtin(cmd[0]) > 0)
+	{
+		env = do_builtin(cmd, env);
+		return (env);
+	}
+	else
+		exe_cmd(env, cmd, path);
+	return (env);
+}
+
+static void		manage_stdin(char **env, char **cmd, char **path) //, char *line)
+{
+	char *line;
+
+	line = NULL;
 	while (1)
 	{
 		prompt(env);
 		if (get_next_line(0, &line) == 1)
 		{
-			/* parse commands entered through stdin and save them in **cmd */
+			// parse commands entered through stdin and save them in **cmd
 			cmd = ft_strsplit(line, ' ');
 			ft_strdel(&line);
 			path = parse_path(env, cmd);
@@ -72,10 +87,7 @@ static void		manage_args(char **env, char **cmd, char **path, char *line)
 				free_ptr(env, cmd, path);
 				break ;
 			}
-			else if (is_builtin(cmd[0]) > 0)
-				env = do_builtin(cmd, env);
-			else
-				exe_cmd(env, cmd, path);
+			env = manage_cmd(env, cmd, path);
 		}
 		ft_putstr("\n");
 	}
@@ -84,17 +96,17 @@ static void		manage_args(char **env, char **cmd, char **path, char *line)
 int				main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
-	char	*line;
 	char	**cmd;
 	char	**path_cpy;
 
 	env_cpy = NULL;
 	av = NULL;
-	cmd = NULL; //
-	path_cpy = NULL; //
-	line = NULL; //
+	cmd = NULL;
+	path_cpy = NULL;
 	env_cpy = tab_dup(env);
 	if (ac == 1)
-		manage_args(env_cpy, cmd, path_cpy, line);
+		manage_stdin(env_cpy, cmd, path_cpy); //, line);
+	else
+		return (1);
 	return (0);
 }

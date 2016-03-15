@@ -51,11 +51,45 @@ static void		manage_error(char **cmd)
 		chdir(cmd[1]);
 }
 
-char	**do_cd(char **cmd, char **env)
+static char		*user_root(char **env, char *cmd)
+{
+	char *home;
+	char *tmp;
+	char *cmd_cpy;
+
+	cmd_cpy = NULL;
+	home = get_env_content(env, "HOME");
+	printf("cmd[0] ---> |%c|\n", cmd[0]);
+	printf("cmd[1] ---> |%c|\n", cmd[1]);
+	if (!cmd[1]) // || (cmd[1]== '/' && !cmd[2]))
+	{
+		printf(" ---- TEST ---- \n");
+		ft_strdel(&cmd);
+		return (home);
+	}
+	if (home)
+	{
+		tmp = ft_strstr(cmd, "/");
+		if (!(cmd_cpy = (char *)malloc(sizeof(char) *
+			(ft_strlen(home) + ft_strlen(cmd) + 1))))
+			return (NULL);
+		cmd_cpy = ft_strcpy(cmd_cpy, home);
+		cmd_cpy = ft_strcat(cmd_cpy, tmp);
+		cmd_cpy = ft_strcat(cmd_cpy, "/");
+		ft_strdel(&home);
+		ft_strdel(&cmd);
+		return (cmd_cpy);
+	}
+	return (NULL);
+}
+
+char			**do_cd(char **cmd, char **env)
 {
 	DIR *dir;
 
 	dir = NULL;
+	if (cmd[1] && cmd[1][0] == '~')
+		cmd[1] = user_root(env, cmd[1]);
 	if (cmd[1])
 	{
 		dir = opendir(cmd[1]);
