@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:45:40 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 09:18:54 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 11:58:59 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		is_builtin(char *cmd)
  * * cd command
  */
 
-void	do_cd(char **cmd, char **env)
+char	**do_cd(char **cmd, char **env)
 {
 	DIR				*dir;
 	struct stat		st;
@@ -59,6 +59,7 @@ void	do_cd(char **cmd, char **env)
 		chdir(home);
 		ft_strdel(&home);
 	}
+	return (env);
 }	
 
 /*
@@ -73,14 +74,13 @@ char	**do_builtin(char **cmd, char **env)
 	i = 0;
 	new_env = NULL;
 	if (!ft_strcmp(cmd[0], "cd"))
-		do_cd(cmd, env);
+		new_env = do_cd(cmd, env);
 	else if (!ft_strcmp(cmd[0], "setenv"))
-		new_env = do_setenv(env, cmd);
-//printf("new_env -> |%s|\n", new_env[i]);
-	else
 	{
-		new_env = do_env(env, cmd);
+		printf("--- setenv ---\n");
+		new_env = do_setenv(env, cmd);
 	}
-//	return (new_env);
-	return (env);
+	else
+		new_env = do_env(env, cmd);
+	return (new_env);
 }

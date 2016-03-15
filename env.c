@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/13 15:16:11 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 11:16:37 by fviolin          ###   ########.fr       */
+/*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
+/*   Updated: 2016/03/15 11:36:16 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-* * Function getting contents inside env var
-*/
-
-char	*get_env_content(char **env, char *str)
+void	print_env(char **env)
 {
-	int		start;
-	char	*tmp;
-	char	*content;
-
 	if (env && *env)
 	{
 		while (*env)
 		{
-			if (!ft_strncmp(*env, str, ft_strlen(str)))
-			{
-				start = ft_strlen(str) + 1;
-				/* parsing for env variables USER + HOME */
-				tmp = ft_strsub(*env, start, ft_strlen(*env) - start);
-				content = ft_strdup(tmp);
-				ft_strdel(&tmp);
-				return (content);
-			}
+			ft_putendl(*env);
 			env++;
 		}
 	}
-	return (NULL);
+	else
+		ft_putendl_fd("empty environment - print_env()", 2);
+}
+
+char	**do_env(char **env, char **cmd)
+{
+	char	**tmp;
+
+	tmp = NULL;
+	if (ft_tablen(cmd) == 1)
+	{
+		print_env(env);
+		return (env);
+	}
+	if (env)
+		tmp = tab_dup(env);
+	return (env);
 }

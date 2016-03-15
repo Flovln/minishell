@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/14 17:58:10 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 12:09:42 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct		s_exe
 
 void	prompt(char **env);
 char	*get_env_content(char **env, char *str);
-char	**tab_dup(char **tab);
 void	exe_cmd(char **env, char **cmd, char **path_cpy);
 char	*get_cmd_path(char *cmd, char **path);
 
@@ -48,9 +47,19 @@ char	*get_cmd_path(char *cmd, char **path);
 
 int		is_builtin(char *cmd);
 char	**do_builtin(char **cmd, char **env);
-void	do_cd(char **cmd, char **env);
+char	**do_cd(char **cmd, char **env);
 
 char	**add_str(char **env, char **new_env, char **cmd, int len);
 int		is_include(char **env, char *cmd);
 char	**do_setenv(char **env, char **cmd);
+
+char	**do_env(char **env, char **cmd);
+
+/*
+ * * Tools Functions
+ */
+
+char	**tab_dup(char **tab);
+void	free_tab(char **tab);
+
 #endif

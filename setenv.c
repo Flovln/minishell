@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 10:53:54 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/15 11:55:42 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ char			**add_str(char **env, char **new_env, char **cmd, int len)
 		new_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	new_env[i] = ft_strjoin(cmd[1], "=");
-	tmp = new_env[i];
+	tmp = ft_strjoin(cmd[1], "=");
 	new_env[i] = ft_strjoin(tmp, cmd[2]);
 	ft_strdel(&tmp);
 	new_env[i + 1] = NULL;
-	//free tab env
+	free_tab(env);
 	return(new_env);
 }
 
@@ -66,14 +65,14 @@ static char		**change_str(char **env, char **cmd, int i, int len)
 
 	if (len == 1)
 	{
-		//free tab
+		free_tab(env);
 		return (NULL);
 	}
+	ft_strdel(&env[i]);
 	env[i] = ft_strcat(cmd[1], "=");
 	tmp = env[i];
 	env[i] = ft_strjoin(tmp, cmd[2]);
-	i++;
-	env[i] = NULL;
+	env[i + 1] = NULL;
 	return (env);
 }
 
@@ -103,12 +102,10 @@ char			**do_setenv(char **env, char **cmd)
 			new_env = add_str(env, new_env, cmd, len);
 			return (new_env);
 		}
-		else
-		{
-			new_env = change_str(env, cmd, i, len);
-			return (new_env);
-		}
+		return (change_str(env, cmd, i, len));
+	//	new_env = change_str(env, cmd, i, len);
+//		return (new_env);
 	}
-	// free tab env
+	free_tab(env);
 	return (NULL);
 }
