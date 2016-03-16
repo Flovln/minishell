@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/14 18:15:28 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 10:57:02 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
  * * Get commands paths
  */
+/* open and read each dir saved in **path until cmd saved in *cmd matches */
 
 char	*get_cmd_path(char *cmd, char **path)
 {
@@ -23,7 +24,6 @@ char	*get_cmd_path(char *cmd, char **path)
 	DIR				*dir;
 	struct dirent	*ret;
 
-/* open and read each dir saved in **path until cmd saved in *cmd matches */
 	if (cmd && path)
 	{
 		i = 0;
@@ -41,7 +41,8 @@ char	*get_cmd_path(char *cmd, char **path)
 			i++;
 		}
 	}
-	ft_putendl("get_cmd_path() error");
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putendl_fd(cmd, 2);
 	return (NULL);
 }
 
@@ -49,14 +50,14 @@ char	*get_cmd_path(char *cmd, char **path)
  * * Command managing takes **env / parse cmd / parse path cpy
  */
 
-void	exe_cmd(char **env, char **cmd, char **path_cpy)
+void	exe_cmd(char **env, char **cmd, char **path)
 {
 	char	*cmd_path;
 	char	*tmp;
 	pid_t	pid;
 
 	cmd_path = NULL;
-	if ((cmd_path = get_cmd_path(cmd[0], path_cpy)) != NULL)
+	if ((cmd_path = get_cmd_path(cmd[0], path)) != NULL)
 	{	
 		pid = fork();
 		if (pid > 0) // father
@@ -68,11 +69,6 @@ void	exe_cmd(char **env, char **cmd, char **path_cpy)
 			cmd_path = ft_strjoin(tmp, cmd[0]);
 			ft_strdel(&tmp);
 			execve(cmd_path, cmd, env);
-		}
-		else
-		{
-			ft_putendl("--- Command not found ---");
-			ft_putendl("exe_cmd() error");
 		}
 	}
 }

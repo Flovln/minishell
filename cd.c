@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:01:38 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 17:14:50 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 10:28:14 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ static char		*user_root(char **env, char *cmd)
 
 	cmd_cpy = NULL;
 	home = get_env_content(env, "HOME");
-	printf("cmd[0] ---> |%c|\n", cmd[0]);
-	printf("cmd[1] ---> |%c|\n", cmd[1]);
-	if (!cmd[1]) // || (cmd[1]== '/' && !cmd[2]))
+	if (!cmd[1])
 	{
-		printf(" ---- TEST ---- \n");
 		ft_strdel(&cmd);
 		return (home);
 	}
@@ -75,7 +72,6 @@ static char		*user_root(char **env, char *cmd)
 			return (NULL);
 		cmd_cpy = ft_strcpy(cmd_cpy, home);
 		cmd_cpy = ft_strcat(cmd_cpy, tmp);
-		cmd_cpy = ft_strcat(cmd_cpy, "/");
 		ft_strdel(&home);
 		ft_strdel(&cmd);
 		return (cmd_cpy);

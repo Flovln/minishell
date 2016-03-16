@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 14:43:16 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 10:59:17 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ char	**do_cd(char **cmd, char **env);
 char	**add_str(char **env, char **new_env, char **cmd, int len);
 int		is_include(char **env, char *cmd);
 char	**do_setenv(char **env, char **cmd);
-
 char	**do_unsetenv(char **env, char **cmd);
-
 char	**do_env(char **env, char **cmd);
 
 /*

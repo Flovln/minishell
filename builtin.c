@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:45:40 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 17:13:20 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 10:26:24 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,9 @@ char	**do_builtin(char **cmd, char **env)
 	if (!ft_strcmp(cmd[0], "cd"))
 		new_env = do_cd(cmd, env);
 	else if (!ft_strcmp(cmd[0], "setenv"))
-	{
-		printf("--- setenv ---\n");
 		new_env = do_setenv(env, cmd);
-	}
 	else if (!ft_strcmp(cmd[0], "unsetenv"))
-	{
-		printf("--- unsetenv ---\n");
 		new_env = do_unsetenv(env, cmd);
-	}
 	else
 		new_env = do_env(env, cmd);
 	return (new_env);
