@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 14:04:21 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:45:29 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static char		**equal_opt(char **env, char **cmd, char **tmp)
 	if (len == 2)
 	{
 		free_tab(tmp);
-		//return (setenv_redirection(env, cmd));
 		env = setenv_redirection(env, cmd);
 		return (env);
 	}
@@ -66,18 +65,6 @@ static char		**equal_opt(char **env, char **cmd, char **tmp)
 	}
 	free_tab(tmp);
 	return (env);
-}
-
-void			print_env(char **env)
-{
-	if (env && *env)
-		while (*env)
-		{
-			ft_putendl(*env);
-			env++;
-		}
-	else
-		ft_putendl_fd("empty environment", 2);
 }
 
 char			**manage_do_env(char **env, char **cmd, char **tmp)

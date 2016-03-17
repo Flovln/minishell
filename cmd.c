@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 16:35:57 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:46:26 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_cmd_path(char *cmd, char **path)
 void	exe_fork(char **env, char **cmd, char *cmd_path)
 {
 	pid_t	pid;
-	char 	*tmp;
+	char	*tmp;
 
 	pid = fork();
 	if (pid > 0)

@@ -6,14 +6,14 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 15:23:39 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:47:48 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- * * redirection for env <var name>=<content>
+ * * Testing function()
  */
 
 void			ft_print_tab(char **tab)
@@ -57,7 +57,7 @@ char			**setenv_redirection(char **env, char **cmd)
 
 char			**add_str(char **env, char **new_env, char **cmd, int len)
 {
-	int 	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;

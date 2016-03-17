@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 15:49:18 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:46:57 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char		**remove_str(char **env, char **new_env, int i, int len)
 
 static char		**unset_env(char **env, int len, int i)
 {
-	char 	**new_env;
+	char **new_env;
 
 	new_env = NULL;
 	if (len == 1)

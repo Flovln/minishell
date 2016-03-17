@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 13:19:16 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:43:11 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_exe
 
 void	prompt(char **env);
 char	*get_env_content(char **env, char *str);
+void	print_env(char **env);
 void	manage_exe_cmd(char **env, char **cmd, char **path_cpy);
 char	*get_cmd_path(char *cmd, char **path);
 void	exe_fork(char **env, char **cmd, char *cmd_path);
