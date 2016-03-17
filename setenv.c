@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 13:38:22 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:23:39 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,24 @@ void			ft_print_tab(char **tab)
 	printf("\n-> print_tab() end <-\n\n");
 }
 
+/*
+ * * Used when setting new env w/ env <varname>=<content>
+ */
+
 char			**setenv_redirection(char **env, char **cmd)
 {
-	char	*tab[4];
+	char	*cmd_var[4];
 	char	**new_env;
 
-	printf("\n--- setenv_redirection() ---\n\n");
-	tab[0] = ft_strdup("setenv");
-	printf("tab[0] -> |%s|\n", tab[0]);
-	tab[1] = ft_strcdup(cmd[1], '=');
-	printf("tab[1] -> |%s|\n", tab[1]);
-	tab[2] = ft_strsub(ft_strstr(cmd[1], "="), 1, ft_strlen(cmd[1])
-			- ft_strlen(tab[0]) + 3);
-	printf("tab[2] -> |%s|\n", tab[2]);
-	tab[3] = NULL;  // supprimer
-	printf("tab[3] -> |%s|\n", tab[3]);
-	new_env = do_setenv(env, tab);
-	ft_print_tab(new_env);
-	ft_strdel(&tab[0]);
-	ft_strdel(&tab[1]);
-	ft_strdel(&tab[2]);
-	printf("--- setenv_redirection() end ---\n");
+	cmd_var[0] = ft_strdup("setenv");
+	cmd_var[1] = ft_strcdup(cmd[1], '=');
+	cmd_var[2] = ft_strstr(cmd[1], "=");
+	cmd_var[2] = ft_strsub(cmd_var[2], 1, ft_strlen(cmd_var[2]) - 1);
+	cmd_var[3] = NULL;
+	new_env = do_setenv(env, cmd_var);
+	ft_strdel(&cmd_var[0]);
+	ft_strdel(&cmd_var[1]);
+	ft_strdel(&cmd_var[2]);
 	return (new_env);
 }
 

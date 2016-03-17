@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 13:32:58 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 14:04:21 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char		**unset_opt(char **env, char **cmd, char **tmp)
 	if (len == 2)
 		ft_putendl_fd("error: too few arguments", 2);
 	else if (len == 3)
-		return (do_unsetenv(env, ++cmd)); // cmd[1]
+		return (do_unsetenv(env, ++cmd));
 	else if (len > 3)
 	{
 		tmp = do_unsetenv(tmp, &cmd[1]);
@@ -82,9 +82,6 @@ void			print_env(char **env)
 
 char			**manage_do_env(char **env, char **cmd, char **tmp)
 {
-	/* TEST */
-	printf("\n----> manage_do_env <----\n");
-	printf("\ncmd[1] -> |%s|\n\n", cmd[1]);
 	if (!ft_strcmp(cmd[1], "-u") || !ft_strcmp(cmd[1], "--unset"))
 		return (unset_opt(env, cmd, tmp));
 	else if ((!ft_strcmp(cmd[1], "-i") || !ft_strcmp(cmd[1], "-") ||

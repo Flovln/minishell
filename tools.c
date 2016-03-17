@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 12:47:41 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:23:42 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ int		ft_occ_nb(char *s, char c)
 				count++;
 			s++;
 		}
-		printf(" ---> == occurence <---\ncount = |%d|\n", count);
 		return (count);
 	}
 	return (0);
