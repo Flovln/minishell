@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 14:24:21 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 11:59:37 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int		ft_multi_strcmp(char *s, char *s1, char *s2);
  * * Tools Functions
  */
 
+int		ft_occ_nb(char *s, char c);
+char	*ft_strcdup(char *s, char c);
+
+char	**setenv_redirection(char **env, char **cmd);
 char	**resize_cmd(char **cmd, char **cmd_tmp, int flag);
 void	fork_redirection(char **env, char **cmd, int flag);
 char	**ignore_env(char **env, int len);

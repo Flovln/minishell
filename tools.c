@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 16:48:16 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:47:41 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	fork_redirection(char **env, char **cmd, int flag)
 
 	cmd_path = NULL;
 	if (!(cmd_tmp = (char **)malloc(sizeof(char *) *
-				(ft_tablen(cmd) - flag + 1))))
+					(ft_tablen(cmd) - flag + 1))))
 		return ;
 	if (env && (cmd_tmp = resize_cmd(cmd, cmd_tmp, flag)))
 	{
@@ -130,14 +130,51 @@ void	fork_redirection(char **env, char **cmd, int flag)
 		}
 	}
 }
-
 /*
-int		ft_multi_strcmp(char *s, char *s1, char *s2)
+ * * strdup functions
+ */
+
+int		ft_occ_nb(char *s, char c)
 {
-	if (!ft_strcmp(s, s1) || !ft_strcmp(s, s2))
-		return (1);
+	int count;
+
+	if (s && c)
+	{
+		count = 0;
+		while (*s)
+		{
+			if (*s == c)
+				count++;
+			s++;
+		}
+		printf(" ---> == occurence <---\ncount = |%d|\n", count);
+		return (count);
+	}
 	return (0);
-}*/
+}
+
+static char	*ft_strndup(char *s1, int len)
+{
+	char *s2;
+
+	if (!(s2 = (char *)malloc(sizeof(char) * len + 1)))
+		return (NULL);
+	return (ft_strncpy(s2, s1, len));
+}
+
+char	*ft_strcdup(char *s, char c)
+{
+	int	i;
+
+	if (s && c)
+	{
+		i = 0;
+		while (s[i] && s[i] != c)
+			i++;
+		return (ft_strndup(s, i));
+	}
+	return (NULL);
+}
 
 /*
  * * Free functions
@@ -173,9 +210,9 @@ void	free_tab(char **tab)
 	}
 }
 /*
-void            free_ptr(char **env_cpy, char **cmd, char **path_cpy)
-{
+   void            free_ptr(char **env_cpy, char **cmd, char **path_cpy)
+   {
 //	ft_strdel(env_cpy);
-	ft_strdel(cmd);
+ft_strdel(cmd);
 //	ft_strdel(path_cpy);
 }*/
