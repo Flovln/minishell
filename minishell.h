@@ -6,35 +6,26 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 15:43:11 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 16:25:20 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/dir.h>
-#include <sys/stat.h>
-#include <dirent.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/dir.h>
+# include <sys/stat.h>
+# include <dirent.h>
 
-#include "libft/libft.h"
+# include "libft/libft.h"
 
-#define DEBUG printf("%d: %s\n", __LINE__, __func__); /* ---DEBUG--- */
-
-/*
-typedef struct		s_exe
-{
-	char			*line;
-	char			**cmd_path;
-	char			**path_cpy;
-}					t_exe;
-*/
+# define DEBUG printf("%d: %s\n", __LINE__, __func__); /* ---DEBUG--- */
 
 void	prompt(char **env);
 char	*get_env_content(char **env, char *str);

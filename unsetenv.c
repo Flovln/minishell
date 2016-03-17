@@ -6,11 +6,31 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 15:46:57 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 16:21:16 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+ * * Check if var passed as arg already exits in env
+ * * Returns an integer which is equal to the str line number where it stops
+ */
+
+int				is_include(char **env, char *cmd)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = ft_strlen(cmd);
+	while (env && env[i])
+	{
+		if (!ft_strncmp(env[i], cmd, len))
+			break ;
+		i++;
+	}
+	return (i);
+}
 
 /*
  * * Remove str if it exists in env

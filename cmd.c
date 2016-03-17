@@ -6,39 +6,37 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 15:46:26 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 16:55:36 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- * * Get commands paths
+ * * Get command's paths entered through stdin
  */
 /* open and read each dir saved in **path until cmd saved in *cmd matches */
 
 char	*get_cmd_path(char *cmd, char **path)
 {
-	int				i;
 	int				j;
 	DIR				*dir;
 	struct dirent	*ret;
 
-	if (cmd && path)
+	if (cmd && path && *path)
 	{
-		i = 0;
 		j = 0;
-		while (path[i])
+		while (*path)
 		{
-			if ((dir = opendir(path[i])))
+			if ((dir = opendir(*path)))
 				while ((ret = readdir(dir)))
 					if (!ft_strcmp(ret->d_name, cmd))
 					{
 						closedir(dir);
-						return (ft_strdup(path[i]));
+						return (ft_strdup(*path));
 					}
 			closedir(dir);
-			i++;
+			path++;
 		}
 	}
 	ft_putstr_fd("minishell: command not found: ", 2);
