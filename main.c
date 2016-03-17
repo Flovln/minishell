@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 16:09:35 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 17:57:49 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void		manage_stdin(char **env, char **cmd, char **path)
 		prompt(env);
 		if (get_next_line(0, &line) == 1)
 		{
-			// parse commands entered through stdin and save them in **cmd
 			cmd = ft_strsplit(line, ' ');
 			ft_strdel(&line);
 			path = parse_path(env);
@@ -89,6 +88,7 @@ int				main(int ac, char **av, char **env)
 	cmd = NULL;
 	path_cpy = NULL;
 	env_cpy = tab_dup(env);
+	signal(SIGINT, SIG_IGN);
 	if (ac == 1)
 		manage_stdin(env_cpy, cmd, path_cpy);
 	else
