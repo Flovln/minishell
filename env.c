@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 12:06:58 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 13:00:44 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ static char		**equal_opt(char **env, char **cmd, char **tmp)
 	if (len == 2)
 	{
 		free_tab(tmp);
-		env = setenv_redirection(env, cmd);
-		return (env);
+		return (setenv_redirection(env, cmd));
+		//env = setenv_redirection(env, cmd);
+		//return (env);
 	}
 	else if (len > 2)
 	{
