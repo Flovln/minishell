@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 17:57:49 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:51:57 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ static void		manage_stdin(char **env, char **cmd, char **path)
 		prompt(env);
 		if (get_next_line(0, &line) == 1)
 		{
+			cmd = ft_strsplit(line, ';'); // option
+			ft_strdel(&line); //
+			ft_print_tab(cmd); // test
 			cmd = ft_strsplit(line, ' ');
 			ft_strdel(&line);
 			path = parse_path(env);
@@ -68,7 +71,7 @@ static void		manage_stdin(char **env, char **cmd, char **path)
 		{
 			if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 			{
-//				free_ptrs(env, cmd, path);
+				free_ptrs(env, cmd, path);
 				break ;
 			}
 			env = manage_cmd(env, cmd, path);

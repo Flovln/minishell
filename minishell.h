@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 16:25:20 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:24:02 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	fork_redirection(char **env, char **cmd, int flag);
 char	**ignore_env(char **env, int len);
 char	**tab_dup(char **tab);
 void	free_tab(char **tab);
-void	free_ptr(/*char **env_cpy, */char **cmd, char **path_cpy);
+void	free_ptrs(char **env_cpy, char **cmd, char **path_cpy);
 void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str);
 
 #endif

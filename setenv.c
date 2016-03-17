@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 15:47:48 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:51:19 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void			ft_print_tab(char **tab)
 	printf("\n-> print_tab() <-\n\n");
 	while (tab[i])
 	{
+		ft_putnbr(i);
+		ft_putstr("-->");
 		ft_putendl(tab[i]);
 		i++;
 	}

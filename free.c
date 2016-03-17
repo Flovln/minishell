@@ -6,19 +6,19 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:05:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 16:16:21 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:23:39 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 void	free_ptrs(char **env_cpy, char **cmd, char **path_cpy)
 {
 	ft_strdel(env_cpy);
 	ft_strdel(path_cpy);
 	ft_strdel(cmd);
 }
-*/
+
 void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str)
 {
 	free_tab(cmd_tmp);
