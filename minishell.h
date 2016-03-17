@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 11:59:37 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 13:19:16 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		ft_multi_strcmp(char *s, char *s1, char *s2);
 /*
  * * Tools Functions
  */
+void	ft_print_tab(char **tab); //test
 
 int		ft_occ_nb(char *s, char c);
 char	*ft_strcdup(char *s, char c);

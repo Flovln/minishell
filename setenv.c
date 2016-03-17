@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 12:06:54 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 13:38:22 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,26 @@
  * * redirection for env <var name>=<content>
  */
 
+void			ft_print_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	printf("\n-> print_tab() <-\n\n");
+	while (tab[i])
+	{
+		ft_putendl(tab[i]);
+		i++;
+	}
+	printf("\n-> print_tab() end <-\n\n");
+}
+
 char			**setenv_redirection(char **env, char **cmd)
 {
 	char	*tab[4];
 	char	**new_env;
-	printf(" --- setenv_redirection ---\n");
+
+	printf("\n--- setenv_redirection() ---\n\n");
 	tab[0] = ft_strdup("setenv");
 	printf("tab[0] -> |%s|\n", tab[0]);
 	tab[1] = ft_strcdup(cmd[1], '=');
@@ -28,12 +43,14 @@ char			**setenv_redirection(char **env, char **cmd)
 	tab[2] = ft_strsub(ft_strstr(cmd[1], "="), 1, ft_strlen(cmd[1])
 			- ft_strlen(tab[0]) + 3);
 	printf("tab[2] -> |%s|\n", tab[2]);
-	tab[3] = NULL;
+	tab[3] = NULL;  // supprimer
 	printf("tab[3] -> |%s|\n", tab[3]);
-	new_env = do_setenv(tab, env);
+	new_env = do_setenv(env, tab);
+	ft_print_tab(new_env);
 	ft_strdel(&tab[0]);
 	ft_strdel(&tab[1]);
 	ft_strdel(&tab[2]);
+	printf("--- setenv_redirection() end ---\n");
 	return (new_env);
 }
 
@@ -105,9 +122,8 @@ char			**do_setenv(char **env, char **cmd)
 			free_tab(env);
 			return (new_env);
 		}
-		return (update_str(env, cmd, i, len));
-		//new_env = update_str(env, cmd, i, len);
-		//return (new_env);
+		new_env = update_str(env, cmd, i, len);
+		return (new_env);
 	}
 	return (NULL);
 }
