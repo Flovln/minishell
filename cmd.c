@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 16:55:36 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:21:20 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,25 @@ void	exe_fork(char **env, char **cmd, char *cmd_path)
 	pid_t	pid;
 	char	*tmp;
 
-	pid = fork();
-	if (pid > 0)
-		wait(0);
-	else if (pid == 0)
+	tmp = ft_strjoin(cmd_path, "/");
+	if (access(ft_strjoin(tmp, cmd[0]), X_OK) != -1)
 	{
-		// signal
-		tmp = ft_strjoin(cmd_path, "/");
-		ft_strdel(&cmd_path);
-		cmd_path = ft_strjoin(tmp, cmd[0]);
-		ft_strdel(&tmp);
-		execve(cmd_path, cmd, env);
+		pid = fork();
+		if (pid > 0)
+			wait(0);
+		else if (pid == 0)
+		{
+			signal(SIGINT, SIG_DFL);
+			ft_strdel(&cmd_path);
+			cmd_path = ft_strjoin(tmp, cmd[0]);
+			ft_strdel(&tmp);
+			execve(cmd_path, cmd, env);
+		}
+	}
+	else
+	{
+		ft_putstr_fd("error: permission denied: ", 2);
+		ft_putendl_fd(cmd[0], 2);
 	}
 }
 
