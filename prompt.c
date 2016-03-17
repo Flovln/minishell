@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 16:35:11 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 15:55:57 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	prompt(char **env)
 	{
 		ft_putstr("# ");
 		ft_putstr(user);
+		ft_putstr(" in ");
 	}
-	ft_putstr(" in ");
 	if (home && ft_strstr(buf, home))
 	{
 		ft_putchar('~');

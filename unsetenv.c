@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/15 14:42:10 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 15:49:18 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,35 @@ static char		**remove_str(char **env, char **new_env, int i, int len)
 	return (new_env);
 }
 
-/*
- * * Function unsetenv
- */
+static char		**unset_env(char **env, int len, int i)
+{
+	char 	**new_env;
+
+	new_env = NULL;
+	if (len == 1)
+	{
+		free_tab(env);
+		return (NULL);
+	}
+	if (!(new_env = (char **)malloc(sizeof(char *) * (len))))
+		exit(1);
+	new_env = remove_str(env, new_env, i, len);
+	return (new_env);
+}
 
 char			**do_unsetenv(char **env, char **cmd)
 {
 	int		i;
 	int		len;
-	char	**new_env;
 
 	i = 0;
 	len = ft_tablen(env);
 	if (ft_tablen(cmd) < 2)
-		ft_putendl_fd("unsetenv requires 2 arguments", 2);
+		ft_putendl_fd("error: too few arguments", 2);
 	else if ((i = is_include(env, cmd[1])) != len && len > 0)
 	{
-		if (len == 1)
-		{
-			free_tab(env);
-			return (NULL);
-		}
-		if (!(new_env = (char **)malloc(sizeof(char *) * (len))))
-			exit(1);
-		new_env = remove_str(env, new_env, i, len);
-		return (new_env);
+		env = unset_env(env, len, i);
+		return (env);
 	}
 	return (env);
 }

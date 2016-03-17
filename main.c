@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 10:58:18 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/16 14:02:26 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@ char			**parse_path(char **env)
 }
 
 /*
- * * FREE Function
- */
-
-void			free_ptr(char **env_cpy, char **cmd, char **path_cpy)
-{
-	ft_strdel(env_cpy);
-	ft_strdel(cmd);
-	ft_strdel(path_cpy);
-}
-
-/*
  * * Function -> parse cmd entered as arguments / GNL / builtin + cmd control
  */
 
@@ -55,7 +44,9 @@ static char		**manage_cmd(char **env, char **cmd, char **path)
 		return (env);
 	}
 	else
-		exe_cmd(env, cmd, path);
+		manage_exe_cmd(env, cmd, path);
+	free_tab(path);
+	free_tab(cmd);
 	return (env);
 }
 
@@ -78,7 +69,7 @@ static void		manage_stdin(char **env, char **cmd, char **path)
 		{
 			if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 			{
-				free_ptr(env, cmd, path);
+//				free_ptr(env, cmd, path);
 				break ;
 			}
 			env = manage_cmd(env, cmd, path);
