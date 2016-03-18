@@ -6,16 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 18:21:20 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 17:29:46 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
- * * Get command's paths entered through stdin
- */
-/* open and read each dir saved in **path until cmd saved in *cmd matches */
 
 char	*get_cmd_path(char *cmd, char **path)
 {
@@ -44,17 +39,21 @@ char	*get_cmd_path(char *cmd, char **path)
 	return (NULL);
 }
 
-/*
- * * Command managing takes **env / parse cmd / parse path cpy
- */
+static void		exe_fork_error(char **cmd)
+{
+	ft_putstr_fd("error: permission denied: ", 2);
+	ft_putendl_fd(cmd[0], 2);
+}
 
 void	exe_fork(char **env, char **cmd, char *cmd_path)
 {
 	pid_t	pid;
 	char	*tmp;
+	char	*rights;
 
 	tmp = ft_strjoin(cmd_path, "/");
-	if (access(ft_strjoin(tmp, cmd[0]), X_OK) != -1)
+	rights = ft_strjoin(tmp, cmd[0]);
+	if (access(rights, X_OK) != -1)
 	{
 		pid = fork();
 		if (pid > 0)
@@ -69,10 +68,10 @@ void	exe_fork(char **env, char **cmd, char *cmd_path)
 		}
 	}
 	else
-	{
-		ft_putstr_fd("error: permission denied: ", 2);
-		ft_putendl_fd(cmd[0], 2);
-	}
+		exe_fork_error(cmd);
+	ft_strdel(&tmp);
+	ft_strdel(&rights);
+	free_tab(cmd);
 }
 
 void	manage_exe_cmd(char **env, char **cmd, char **path)

@@ -6,15 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:45:40 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 10:26:24 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 17:34:13 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
- * * Check builtin
- */
 
 int		is_builtin(char *cmd)
 {
@@ -29,10 +25,6 @@ int		is_builtin(char *cmd)
 	else
 		return (0);
 }
-
-/*
- * * Buitin Manager
- */
 
 char	**do_builtin(char **cmd, char **env)
 {

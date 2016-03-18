@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 14:03:23 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 17:15:33 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		prompt_user(char **env)
 		ft_putstr(" in ");
 	}
 	else
-		ft_putstr("error: can't find USER var ");
+		ft_putstr("no USER var ");
 	ft_strdel(&user);
 }
 
@@ -41,6 +41,7 @@ void			prompt(char **env)
 	char	*home;
 	char	buf[100];
 
+	ft_bzero(buf, 100);
 	getcwd(buf, 100);
 	home = get_env_content(env, "HOME");
 	prompt_user(env);
@@ -51,7 +52,7 @@ void			prompt(char **env)
 		ft_putstr(ft_strstr(buf, home) + ft_strlen(home));
 		color(RESET, "");
 	}
-	else
+	else if (buf[0])
 		ft_putstr(buf);
 	color(RED, " \n$> ");
 	color(RESET, "");

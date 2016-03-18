@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 16:21:16 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 16:23:25 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char		**remove_str(char **env, char **new_env, int i, int len)
 		j++;
 	}
 	new_env[j] = NULL;
-	free_tab(env);
+	free_tab(env); // free
 	return (new_env);
 }
 
@@ -79,12 +79,17 @@ char			**do_unsetenv(char **env, char **cmd)
 
 	i = 0;
 	len = ft_tablen(env);
-	if (ft_tablen(cmd) < 2)
-		ft_putendl_fd("error: too few arguments", 2);
+	if (ft_tablen(cmd) != 2)
+		ft_putendl_fd("error: wrong arguments number", 2);
 	else if ((i = is_include(env, cmd[1])) != len && len > 0)
 	{
 		env = unset_env(env, len, i);
 		return (env);
+	}
+	else
+	{
+		ft_putstr_fd("error: can't find var: ", 2);
+		ft_putendl_fd(cmd[1], 2);
 	}
 	return (env);
 }

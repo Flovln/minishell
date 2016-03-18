@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 18:51:19 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 16:25:57 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char			**do_setenv(char **env, char **cmd)
 
 	if (ft_tablen(cmd) != 3)
 	{
-		ft_putendl_fd("setenv: too few arguments", 2);
+		ft_putendl_fd("error: wrong arguments number", 2);
 		return (env);
 	}
 	else
@@ -118,7 +118,7 @@ char			**do_setenv(char **env, char **cmd)
 			if (!(new_env = (char **)malloc(sizeof(char *) * (len + 2))))
 				return (NULL);
 			new_env = add_str(env, new_env, cmd, len);
-			free_tab(env);
+//			free_tab(env);
 			return (new_env);
 		}
 		new_env = update_str(env, cmd, i, len);
