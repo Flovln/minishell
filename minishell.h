@@ -6,13 +6,14 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 18:24:02 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 13:14:13 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft/libft.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -23,7 +24,10 @@
 # include <sys/stat.h>
 # include <dirent.h>
 
-# include "libft/libft.h"
+# define RED "[31m"
+# define GREEN "[32m"
+# define YELLOW "[33m"
+# define RESET "[39m"
 
 # define DEBUG printf("%d: %s\n", __LINE__, __func__); /* ---DEBUG--- */
 
