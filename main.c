@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 18:51:57 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 10:47:53 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,50 +50,61 @@ static char		**manage_cmd(char **env, char **cmd, char **path)
 	return (env);
 }
 
-static void		manage_stdin(char **env, char **cmd, char **path)
+static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 {
-	char *line;
+	cmd = ft_strsplit(line, ' '); // gerer isspace
+	ft_strdel(&line);
+	path = parse_path(env);
+	if (ft_tablen(cmd))
+	{
+		if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
+		{
+			if (env && cmd && path)
+				free_ptrs(env, cmd, path);
+			exit (0);
+		}
+		env = manage_cmd(env, cmd, path);
+	}
+	return (env);
+}
 
+static void		manage_stdin(char **env, char **path)
+{
+	int		i;
+	char	*line;
+	char	**cmd;
+
+	cmd = NULL;
 	line = NULL;
 	while (1)
 	{
 		prompt(env);
 		if (get_next_line(0, &line) == 1)
 		{
-			cmd = ft_strsplit(line, ';'); // option
-			ft_strdel(&line); //
-			ft_print_tab(cmd); // test
-			cmd = ft_strsplit(line, ' ');
+			i = -1;
+			cmd = ft_strsplit(line, ';');
 			ft_strdel(&line);
-			path = parse_path(env);
+			while (cmd[++i])
+				env = parse_cmd(env, cmd, cmd[i], path);
+			ft_putchar('\n');
 		}
-		if (ft_tablen(cmd))
-		{
-			if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
-			{
-				free_ptrs(env, cmd, path);
-				break ;
-			}
-			env = manage_cmd(env, cmd, path);
-		}
-		ft_putchar('\n');
+		else
+			ft_putendl_fd("error: wrong usage", 2);
 	}
 }
 
 int				main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
-	char	**cmd;
 	char	**path_cpy;
 
 	env_cpy = NULL;
-	av = NULL;
-	cmd = NULL;
 	path_cpy = NULL;
+	av = NULL;
 	env_cpy = tab_dup(env);
 	signal(SIGINT, SIG_IGN);
 	if (ac == 1)
-		manage_stdin(env_cpy, cmd, path_cpy);
+		manage_stdin(env_cpy, path_cpy);
 	else
 		return (1);
 	return (0);
