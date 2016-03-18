@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 10:47:53 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 11:53:32 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char		**manage_cmd(char **env, char **cmd, char **path)
 
 static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 {
-	cmd = ft_strsplit(line, ' '); // gerer isspace
+	cmd = ft_strsplit_ws(line); // gere isspace
 	ft_strdel(&line);
 	path = parse_path(env);
 	if (ft_tablen(cmd))
