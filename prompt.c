@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 13:17:35 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 14:03:23 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void		prompt_user(char **env)
 		color(RESET, "");
 		ft_putstr(" in ");
 	}
+	else
+		ft_putstr("error: can't find USER var ");
 	ft_strdel(&user);
 }
 
