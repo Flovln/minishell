@@ -6,13 +6,28 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 17:29:46 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:06:44 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+ * * Used for fork_redirection when different commands are passed w/ stdin ex. |env -i ls -l |
+ */
 
-char	*get_cmd_path(char *cmd, char **path)
+char			**resize_cmd(char **cmd, char **cmd_tmp, int flag)
+{
+	while (cmd[flag])
+	{
+		*cmd_tmp = ft_strdup(cmd[flag]);
+		flag++;
+		cmd_tmp++;
+	}
+	*cmd_tmp = NULL;
+	return (cmd_tmp);
+}
+
+char			*get_cmd_path(char *cmd, char **path)
 {
 	int				j;
 	DIR				*dir;
@@ -45,7 +60,7 @@ static void		exe_fork_error(char **cmd)
 	ft_putendl_fd(cmd[0], 2);
 }
 
-void	exe_fork(char **env, char **cmd, char *cmd_path)
+void			exe_fork(char **env, char **cmd, char *cmd_path)
 {
 	pid_t	pid;
 	char	*tmp;
@@ -74,7 +89,7 @@ void	exe_fork(char **env, char **cmd, char *cmd_path)
 	free_tab(cmd);
 }
 
-void	manage_exe_cmd(char **env, char **cmd, char **path)
+void			manage_exe_cmd(char **env, char **cmd, char **path)
 {
 	char	*cmd_path;
 	char	*tmp;

@@ -6,15 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 16:23:25 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 17:40:51 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
- * * Check if var passed as arg already exits in env
- * * Returns an integer which is equal to the str line number where it stops
- */
 
 int				is_include(char **env, char *cmd)
 {
@@ -31,10 +27,6 @@ int				is_include(char **env, char *cmd)
 	}
 	return (i);
 }
-
-/*
- * * Remove str if it exists in env
- */
 
 static char		**remove_str(char **env, char **new_env, int i, int len)
 {

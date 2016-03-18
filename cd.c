@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:01:38 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/16 10:28:14 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 18:00:28 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char			**do_cd(char **cmd, char **env)
 	DIR *dir;
 
 	dir = NULL;
-	if (cmd[1] && cmd[1][0] == '~')
+	if (cmd[1] && cmd[1][0] == '~' && cmd[1][1] != '~')
 		cmd[1] = user_root(env, cmd[1]);
 	if (cmd[1])
 	{

@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 15:45:29 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:03:16 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static char		**unset_opt(char **env, char **cmd, char **tmp)
 		tmp = do_unsetenv(tmp, &cmd[1]);
 		fork_redirection(tmp, cmd, 3);
 	}
-	free_tab(tmp);
 	return (tmp);
 }
 
@@ -38,11 +37,11 @@ static char		**ignore_opt(char **env, char **cmd, char **tmp)
 	if (len == 2)
 	{
 		free_tab(tmp);
-		env = ignore_env(env, len);
+		env = ignore_env(env, len); // assigne NULL a env WRONG
 		return (env);
 	}
-	else if (len > 2)
-		fork_redirection(NULL, cmd, 2);
+	else if (len > 2) // redige commandes qui suivent ex. env -i ls -l etc..
+		fork_redirection(NULL, cmd, 2); // env instead of NULL ?
 	free_tab(tmp);
 	return (env);
 }

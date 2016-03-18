@@ -6,17 +6,13 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/17 16:55:33 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:00:32 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
- * * Function Duplicating tab
- */
-
-char	**tab_dup(char **tab)
+char			**tab_dup(char **tab)
 {
 	char	**tmp;
 	int		i;
@@ -40,22 +36,10 @@ char	**tab_dup(char **tab)
 }
 
 /*
- * * Functions managing different arguments when using env -.. .. ..
+ * * Redirigre Fork pour commandes a la suite ex. env -i ls -l..
  */
 
-char	**resize_cmd(char **cmd, char **cmd_tmp, int flag)
-{
-	while (cmd[flag])
-	{
-		*cmd_tmp = ft_strdup(cmd[flag]);
-		flag++;
-		cmd_tmp++;
-	}
-	*cmd_tmp = NULL;
-	return (cmd_tmp);
-}
-
-void	fork_redirection(char **env, char **cmd, int flag)
+void			fork_redirection(char **env, char **cmd, int flag)
 {
 	char	*cmd_path;
 	char	*path_str;
@@ -63,6 +47,7 @@ void	fork_redirection(char **env, char **cmd, int flag)
 	char	**cmd_tmp;
 
 	cmd_path = NULL;
+//	printf(" TEST \n");
 	if (!(cmd_tmp = (char **)malloc(sizeof(char *) *
 					(ft_tablen(cmd) - flag + 1))))
 		return ;
@@ -79,11 +64,8 @@ void	fork_redirection(char **env, char **cmd, int flag)
 		}
 	}
 }
-/*
- * * strdup functions
- */
 
-int		ft_occ_nb(char *s, char c)
+int				ft_occ_nb(char *s, char c)
 {
 	int count;
 
@@ -101,7 +83,7 @@ int		ft_occ_nb(char *s, char c)
 	return (0);
 }
 
-static char	*ft_strndup(char *s1, int len)
+static char		*ft_strndup(char *s1, int len)
 {
 	char *s2;
 
@@ -110,7 +92,7 @@ static char	*ft_strndup(char *s1, int len)
 	return (ft_strncpy(s2, s1, len));
 }
 
-char	*ft_strcdup(char *s, char c)
+char			*ft_strcdup(char *s, char c)
 {
 	int	i;
 

@@ -6,15 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 11:53:32 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 19:50:19 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
- * * Function parsing PATH string
- */
 
 char			**parse_path(char **env)
 {
@@ -32,12 +28,10 @@ char			**parse_path(char **env)
 	return (NULL);
 }
 
-/*
- * * Function -> parse cmd entered as arguments / GNL / builtin + cmd control
- */
-
 static char		**manage_cmd(char **env, char **cmd, char **path)
 {
+//	ft_print_tab(cmd);
+//	execve(cmd_path, cmd, NULL);
 	if (is_builtin(cmd[0]) > 0)
 	{
 		env = do_builtin(cmd, env);
@@ -45,23 +39,23 @@ static char		**manage_cmd(char **env, char **cmd, char **path)
 	}
 	else
 		manage_exe_cmd(env, cmd, path);
-	free_tab(path);
-	free_tab(cmd);
+	free_tab(path); // free
 	return (env);
 }
 
 static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 {
-	cmd = ft_strsplit_ws(line); // gere isspace
+	cmd = ft_strsplit_ws(line);
 	ft_strdel(&line);
 	path = parse_path(env);
 	if (ft_tablen(cmd))
 	{
 		if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 		{
-			if (env && cmd && path)
-				free_ptrs(env, cmd, path);
-			exit (0);
+			free_tab(env); // free
+			free_tab(cmd); // free
+			free_tab(path); // free
+			exit(0);
 		}
 		env = manage_cmd(env, cmd, path);
 	}
@@ -86,11 +80,15 @@ static void		manage_stdin(char **env, char **path)
 			ft_strdel(&line);
 			while (cmd[++i])
 				env = parse_cmd(env, cmd, cmd[i], path);
+			free(cmd); // free
+			cmd = NULL;
+			free_tab(path); // free
 			ft_putchar('\n');
 		}
 		else
 			ft_putendl_fd("error: wrong usage", 2);
 	}
+	free_tab(env); // free
 }
 
 int				main(int ac, char **av, char **env)

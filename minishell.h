@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 13:14:13 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 18:59:51 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,12 @@
 # define YELLOW "[33m"
 # define RESET "[39m"
 
-# define DEBUG printf("%d: %s\n", __LINE__, __func__); /* ---DEBUG--- */
-
 void	prompt(char **env);
 char	*get_env_content(char **env, char *str);
 void	print_env(char **env);
 void	manage_exe_cmd(char **env, char **cmd, char **path_cpy);
 char	*get_cmd_path(char *cmd, char **path);
 void	exe_fork(char **env, char **cmd, char *cmd_path);
-
-/*
- * * Builtin Functions
- */
 
 int		is_include(char **env, char *cmd);
 int		is_builtin(char *cmd);
@@ -54,11 +48,6 @@ char	**do_unsetenv(char **env, char **cmd);
 char	**do_env(char **env, char **cmd);
 int		ft_multi_strcmp(char *s, char *s1, char *s2);
 
-/*
- * * Tools Functions
- */
-void	ft_print_tab(char **tab); //test
-
 int		ft_occ_nb(char *s, char c);
 char	*ft_strcdup(char *s, char c);
 
@@ -71,4 +60,5 @@ void	free_tab(char **tab);
 void	free_ptrs(char **env_cpy, char **cmd, char **path_cpy);
 void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str);
 
+void	ft_print_tab(char **tab); /////// TEST
 #endif

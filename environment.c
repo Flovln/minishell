@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:16:11 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 17:34:31 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/18 19:43:04 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	print_env(char **env)
 	else
 		ft_putendl_fd("empty environment", 2);
 }
+/*
+ * * Renvoie NULL car env -i initialise env a null / rentre jamais dans le if
+ */
 
 char	**ignore_env(char **env, int len)
 {
