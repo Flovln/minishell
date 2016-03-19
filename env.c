@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 20:03:16 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/19 18:37:28 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char		**unset_opt(char **env, char **cmd, char **tmp)
 		tmp = do_unsetenv(tmp, &cmd[1]);
 		fork_redirection(tmp, cmd, 3);
 	}
-	return (tmp);
+	return (env); // ou (tmp) si on veut avoir un envir modifie
 }
 
 static char		**ignore_opt(char **env, char **cmd, char **tmp)
@@ -40,7 +40,7 @@ static char		**ignore_opt(char **env, char **cmd, char **tmp)
 		env = ignore_env(env, len); // assigne NULL a env WRONG
 		return (env);
 	}
-	else if (len > 2) // redige commandes qui suivent ex. env -i ls -l etc..
+	else if (len > 2) // redirige commandes qui suivent ex. env -i ls -l etc..
 		fork_redirection(NULL, cmd, 2); // env instead of NULL ?
 	free_tab(tmp);
 	return (env);
@@ -63,11 +63,14 @@ static char		**equal_opt(char **env, char **cmd, char **tmp)
 		fork_redirection(tmp, cmd, 2);
 	}
 	free_tab(tmp);
-	return (env);
+	return (env); // (tmp)
 }
 
 char			**manage_do_env(char **env, char **cmd, char **tmp)
 {
+	int	flag; //
+
+	flag = ft_tablen(cmd); //
 	if (!ft_strcmp(cmd[1], "-u") || !ft_strcmp(cmd[1], "--unset"))
 		return (unset_opt(env, cmd, tmp));
 	else if ((!ft_strcmp(cmd[1], "-i") || !ft_strcmp(cmd[1], "-") ||
