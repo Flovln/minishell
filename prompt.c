@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/19 16:48:30 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/19 17:07:06 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,22 @@ static void		prompt_user(char **env)
 	ft_strdel(&user);
 }
 
-char			**update_pwd(char **env, char *str, char *wd)
+static void		prompt_path(char *home, char *buf)
+{
+	if (home && ft_strstr(buf, home))
+	{
+		color(GREEN, "");
+		ft_putchar('~');
+		ft_putstr(ft_strstr(buf, home) + ft_strlen(home));
+		color(RESET, "");
+	}
+	else if (buf[0])
+		ft_putstr(buf);
+	color(RED, " \n$> ");
+	color(RESET, "");
+}
+
+static char		**update_pwd(char **env, char *str, char *wd)
 {
 	int		i;
 	char	*tmp;
@@ -72,18 +87,8 @@ void			prompt(char **env, int count)
 	env = update_pwd(env, "PWD=", buf);
 	home = get_env_content(env, "HOME");
 	prompt_user(env);
-	if (home && ft_strstr(buf, home))
-	{
-		color(GREEN, "");
-		ft_putchar('~');
-		ft_putstr(ft_strstr(buf, home) + ft_strlen(home));
-		color(RESET, "");
-	}
-	else if (buf[0])
-		ft_putstr(buf);
-	color(RED, " \n$> ");
-	color(RESET, "");
-	if (count > 0) //
-		env = update_pwd(env, "OLDPWD=", pwd_str); //
+	prompt_path(home, buf);
+	if (count > 0)
+		env = update_pwd(env, "OLDPWD=", pwd_str);
 	ft_strdel(&home);
 }
