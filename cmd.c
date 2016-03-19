@@ -98,8 +98,11 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 	cmd_path = NULL;
 	if ((ft_strstr(cmd[0], "/")))
 	{
+		printf("cmd[0] -> |%s|\n", cmd[0]);
 		tmp = cmd[0];
+		printf("tmp -> |%s|\n", tmp);
 		i = ft_strlen(cmd[0]);
+		printf("i -> |%d|\n", i);
 		while (i > 0 && cmd[0][i] != '/')
 			i--;
 		cmd_path = ft_strsub(tmp, 0, i);
@@ -109,5 +112,5 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 	}
 	else if ((cmd_path = get_cmd_path(cmd[0], path)) != NULL)
 		exe_fork(env, cmd, cmd_path);
-	ft_strdel(&cmd_path);
+//	ft_strdel(&cmd_path);
 }
