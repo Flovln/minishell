@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 18:59:51 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/19 16:41:45 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define YELLOW "[33m"
 # define RESET "[39m"
 
-void	prompt(char **env);
+void	prompt(char **env, int count);
 char	*get_env_content(char **env, char *str);
 void	print_env(char **env);
 void	manage_exe_cmd(char **env, char **cmd, char **path_cpy);

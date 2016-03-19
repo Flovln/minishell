@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 19:50:19 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/19 16:48:26 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ char			**parse_path(char **env)
 
 static char		**manage_cmd(char **env, char **cmd, char **path)
 {
-//	ft_print_tab(cmd);
-//	execve(cmd_path, cmd, NULL);
 	if (is_builtin(cmd[0]) > 0)
 	{
 		env = do_builtin(cmd, env);
@@ -62,7 +60,7 @@ static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 	return (env);
 }
 
-static void		manage_stdin(char **env, char **path)
+static void		manage_stdin(char **env, char **path, int count)
 {
 	int		i;
 	char	*line;
@@ -72,7 +70,7 @@ static void		manage_stdin(char **env, char **path)
 	line = NULL;
 	while (1)
 	{
-		prompt(env);
+		prompt(env, count);
 		if (get_next_line(0, &line) == 1)
 		{
 			i = -1;
@@ -87,6 +85,7 @@ static void		manage_stdin(char **env, char **path)
 		}
 		else
 			ft_putendl_fd("error: wrong usage", 2);
+		count++;
 	}
 	free_tab(env); // free
 }
@@ -95,14 +94,16 @@ int				main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
 	char	**path_cpy;
+	int		count; // for PWD and OLDPWD var
 
+	count = 0;
 	env_cpy = NULL;
 	path_cpy = NULL;
 	av = NULL;
 	env_cpy = tab_dup(env);
 	signal(SIGINT, SIG_IGN);
 	if (ac == 1)
-		manage_stdin(env_cpy, path_cpy);
+		manage_stdin(env_cpy, path_cpy, count);
 	else
 		return (1);
 	return (0);
