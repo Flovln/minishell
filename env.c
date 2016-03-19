@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/19 18:37:28 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/19 19:01:18 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,19 @@ static char		**equal_opt(char **env, char **cmd, char **tmp)
 	free_tab(tmp);
 	return (env); // (tmp)
 }
+/* env + commands managing */
+char			**manage_env_opt(char **env, char **cmd)
+{
+	int len;
+
+	len = ft_tablen(cmd);
+	if (len > 1)
+		fork_redirection(env, cmd, 1);
+	return (env);
+}
 
 char			**manage_do_env(char **env, char **cmd, char **tmp)
 {
-	int	flag; //
-
-	flag = ft_tablen(cmd); //
 	if (!ft_strcmp(cmd[1], "-u") || !ft_strcmp(cmd[1], "--unset"))
 		return (unset_opt(env, cmd, tmp));
 	else if ((!ft_strcmp(cmd[1], "-i") || !ft_strcmp(cmd[1], "-") ||
@@ -80,6 +87,8 @@ char			**manage_do_env(char **env, char **cmd, char **tmp)
 		return (equal_opt(env, cmd, tmp));
 	else if (!ft_strcmp(cmd[1], "--version"))
 		ft_putendl_fd("-- version 1.0 created by fviolin", 2);
+	else if (!ft_strcmp(cmd[0], "env") && cmd[1]) //
+		return(manage_env_opt(env, cmd)); //
 	else
 	{
 		ft_putstr_fd("env: option not found: ", 2);
