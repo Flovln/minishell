@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/19 16:41:45 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 13:23:24 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@
 # define RESET "[39m"
 
 void	prompt(char **env, int count);
-char	*get_env_content(char **env, char *str);
-void	print_env(char **env);
 void	manage_exe_cmd(char **env, char **cmd, char **path_cpy);
 char	*get_cmd_path(char *cmd, char **path);
 void	exe_fork(char **env, char **cmd, char *cmd_path);
+char	**add_str(char **env, char **new_env, char **cmd, int len);
 
 int		is_include(char **env, char *cmd);
 int		is_builtin(char *cmd);
 char	**do_builtin(char **cmd, char **env);
 char	**do_cd(char **cmd, char **env);
 
-char	**add_str(char **env, char **new_env, char **cmd, int len);
-int		is_include(char **env, char *cmd);
 char	**do_setenv(char **env, char **cmd);
 char	**do_unsetenv(char **env, char **cmd);
 char	**do_env(char **env, char **cmd);
-int		ft_multi_strcmp(char *s, char *s1, char *s2);
+char	**ignore_env(char **env, int len);
+char	*get_env_content(char **env, char *str);
+void	print_env(char **env);
+char	**manage_do_env(char **env, char **cmd, char **tmp);
 
 int		ft_occ_nb(char *s, char c);
 char	*ft_strcdup(char *s, char c);
@@ -54,8 +54,9 @@ char	*ft_strcdup(char *s, char c);
 char	**setenv_redirection(char **env, char **cmd);
 char	**resize_cmd(char **cmd, char **cmd_tmp, int flag);
 void	fork_redirection(char **env, char **cmd, int flag);
-char	**ignore_env(char **env, int len);
 char	**tab_dup(char **tab);
+int		ft_multi_strcmp(char *s, char *s1, char *s2);
+
 void	free_tab(char **tab);
 void	free_ptrs(char **env_cpy, char **cmd, char **path_cpy);
 void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str);
