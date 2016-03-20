@@ -6,12 +6,12 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:16:11 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 13:28:25 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 16:10:07 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 char	**ignore_env(char **env, int len)
 {
 	if (len != 2)
@@ -21,7 +21,7 @@ char	**ignore_env(char **env, int len)
 	}
 	return (NULL);
 }
-
+*/
 void	print_env(char **env)
 {
 	if (env && *env)
