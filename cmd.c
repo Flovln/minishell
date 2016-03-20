@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 14:50:21 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 17:48:38 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char			*get_cmd_path(char *cmd, char **path)
 
 static void		norights_error(char **cmd)
 {
-	ft_putstr_fd("error: permission denied: ", 2);
+	ft_putstr_fd("error: permission denied: ", 2); // /bin/<exe.introuvabe>
 	ft_putendl_fd(cmd[0], 2);
 }
 
@@ -74,6 +74,12 @@ void			exe_fork(char **env, char **cmd, char *cmd_path)
 	free_tab(cmd);
 }
 
+static void		manage_error(char **cmd)
+{
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putendl_fd(cmd[0], 2);
+}
+
 void			manage_exe_cmd(char **env, char **cmd, char **path)
 {
 	char	*cmd_path;
@@ -81,17 +87,22 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 	int		i;
 
 	cmd_path = NULL;
-	if ((ft_strstr(cmd[0], "/")))
+	if (cmd[0][2] != '/')
 	{
-		tmp = cmd[0];
-		i = ft_strlen(cmd[0]);
-		while (i > 0 && cmd[0][i] != '/')
-			i--;
-		cmd_path = ft_strsub(tmp, 0, i);
-		cmd[0] = ft_strsub(tmp, i + 1, ft_strlen(tmp));
-		ft_strdel(&tmp);
-		exe_fork(env, cmd, cmd_path);
+		if ((ft_strstr(cmd[0], "/") && cmd[0][1]))
+		{
+			tmp = cmd[0];
+			i = ft_strlen(cmd[0]);
+			while (i > 0 && cmd[0][i] != '/')
+				i--;
+			cmd_path = ft_strsub(tmp, 0, i);
+			cmd[0] = ft_strsub(tmp, i + 1, ft_strlen(tmp));
+			ft_strdel(&tmp);
+			exe_fork(env, cmd, cmd_path);
+		}
+		else if ((cmd_path = get_cmd_path(cmd[0], path)) != NULL)
+			exe_fork(env, cmd, cmd_path);
 	}
-	else if ((cmd_path = get_cmd_path(cmd[0], path)) != NULL)
-		exe_fork(env, cmd, cmd_path);
+	else
+		manage_error(cmd);
 }
