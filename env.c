@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 14:51:02 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 15:28:17 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		**ignore_opt(char **env, char **cmd, char **tmp)
 	if (len == 2)
 	{
 		free_tab(tmp);
-		env = ignore_env(env, len); // assigne NULL a env WRONG
+		env = ignore_env(env, len);
 		return (env);
 	}
 	else if (len > 2)
@@ -88,7 +88,7 @@ char			**manage_do_env(char **env, char **cmd, char **tmp)
 	else if (!ft_strcmp(cmd[1], "--version"))
 		ft_putendl_fd("-- version 1.0 created by fviolin", 2);
 	else if (!ft_strcmp(cmd[0], "env") && cmd[1])
-		return(manage_env_opt(env, cmd));
+		return (manage_env_opt(env, cmd));
 	else
 	{
 		ft_putstr_fd("env: option not found: ", 2);
