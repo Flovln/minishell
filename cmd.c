@@ -6,29 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/19 19:08:56 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 14:50:21 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
- * * Used for fork_redirection when different commands are passed w/ stdin ex. |env -i ls -l |
- */
-
-char			**resize_cmd(char **cmd, char **cmd_tmp, int flag)
-{
-	int i;
-
-	i = 0;
-	while (cmd[flag])
-	{
-		cmd_tmp[i] = ft_strdup(cmd[flag]);
-		flag++;
-		i++;
-	}
-	cmd_tmp[i] = NULL;
-	return (cmd_tmp);
-}
 
 char			*get_cmd_path(char *cmd, char **path)
 {
@@ -56,13 +38,13 @@ char			*get_cmd_path(char *cmd, char **path)
 	ft_putendl_fd(cmd, 2);
 	return (NULL);
 }
-/*
-static void		exe_fork_error(char **cmd)
+
+static void		norights_error(char **cmd)
 {
 	ft_putstr_fd("error: permission denied: ", 2);
 	ft_putendl_fd(cmd[0], 2);
 }
-*/
+
 void			exe_fork(char **env, char **cmd, char *cmd_path)
 {
 	pid_t	pid;
@@ -85,8 +67,8 @@ void			exe_fork(char **env, char **cmd, char *cmd_path)
 			execve(cmd_path, cmd, env);
 		}
 	}
-//	else
-//		exe_fork_error(cmd);
+	else
+		norights_error(cmd);
 	ft_strdel(&tmp);
 	ft_strdel(&rights);
 	free_tab(cmd);
@@ -101,11 +83,8 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 	cmd_path = NULL;
 	if ((ft_strstr(cmd[0], "/")))
 	{
-//		printf("cmd[0] -> |%s|\n", cmd[0]);
 		tmp = cmd[0];
-//		printf("tmp -> |%s|\n", tmp);
 		i = ft_strlen(cmd[0]);
-//		printf("i -> |%d|\n", i);
 		while (i > 0 && cmd[0][i] != '/')
 			i--;
 		cmd_path = ft_strsub(tmp, 0, i);
@@ -115,5 +94,4 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 	}
 	else if ((cmd_path = get_cmd_path(cmd[0], path)) != NULL)
 		exe_fork(env, cmd, cmd_path);
-//	ft_strdel(&cmd_path);
 }

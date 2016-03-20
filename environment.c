@@ -6,11 +6,21 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:16:11 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 19:43:04 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 13:28:25 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**ignore_env(char **env, int len)
+{
+	if (len != 2)
+	{
+		ft_putendl_fd("error: too few arguments", 2);
+		return (env);
+	}
+	return (NULL);
+}
 
 void	print_env(char **env)
 {
@@ -23,18 +33,21 @@ void	print_env(char **env)
 	else
 		ft_putendl_fd("empty environment", 2);
 }
-/*
- * * Renvoie NULL car env -i initialise env a null / rentre jamais dans le if
- */
 
-char	**ignore_env(char **env, int len)
+char	**do_env(char **env, char **cmd)
 {
-	if (len != 2)
+	char **tmp;
+
+	tmp = NULL;
+	if (ft_tablen(cmd) == 1)
 	{
-		ft_putendl_fd("error: too few arguments", 2);
+		print_env(env);
 		return (env);
 	}
-	return (NULL);
+	if (env)
+		tmp = tab_dup(env);
+	env = manage_do_env(env, cmd, tmp);
+	return (env);
 }
 
 char	*get_env_content(char **env, char *str)

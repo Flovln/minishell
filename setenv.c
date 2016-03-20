@@ -6,35 +6,11 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 16:25:57 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 15:09:33 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
- * * Testing function()
- */
-
-void			ft_print_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	printf("\n-> print_tab() <-\n\n");
-	while (tab[i])
-	{
-		ft_putnbr(i);
-		ft_putstr("-->");
-		ft_putendl(tab[i]);
-		i++;
-	}
-	printf("\n-> print_tab() end <-\n\n");
-}
-
-/*
- * * Used when setting new env w/ env <varname>=<content>
- */
 
 char			**setenv_redirection(char **env, char **cmd)
 {
@@ -53,10 +29,6 @@ char			**setenv_redirection(char **env, char **cmd)
 	return (new_env);
 }
 
-/*
- * * Add a new string in env
- */
-
 char			**add_str(char **env, char **new_env, char **cmd, int len)
 {
 	int		i;
@@ -72,12 +44,8 @@ char			**add_str(char **env, char **new_env, char **cmd, int len)
 	new_env[i] = ft_strjoin(tmp, cmd[2]);
 	ft_strdel(&tmp);
 	new_env[i + 1] = NULL;
-	return(new_env);
+	return (new_env);
 }
-
-/*
- * * modify str if var already exists in env
- */
 
 static char		**update_str(char **env, char **cmd, int i, int len)
 {
@@ -94,10 +62,6 @@ static char		**update_str(char **env, char **cmd, int i, int len)
 	env[i] = ft_strjoin(tmp, cmd[2]);
 	return (env);
 }
-
-/*
- * * setenv command
- */
 
 char			**do_setenv(char **env, char **cmd)
 {
@@ -118,7 +82,7 @@ char			**do_setenv(char **env, char **cmd)
 			if (!(new_env = (char **)malloc(sizeof(char *) * (len + 2))))
 				return (NULL);
 			new_env = add_str(env, new_env, cmd, len);
-//			free_tab(env);
+			free_tab(env);
 			return (new_env);
 		}
 		new_env = update_str(env, cmd, i, len);

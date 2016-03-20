@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 20:00:32 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 13:09:52 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,6 @@ char			**tab_dup(char **tab)
 		return (tmp);
 	}
 	return (NULL);
-}
-
-/*
- * * Redirigre Fork pour commandes a la suite ex. env -i ls -l..
- */
-
-void			fork_redirection(char **env, char **cmd, int flag)
-{
-	char	*cmd_path;
-	char	*path_str;
-	char	**path;
-	char	**cmd_tmp;
-
-	cmd_path = NULL;
-//	printf(" TEST \n");
-	if (!(cmd_tmp = (char **)malloc(sizeof(char *) *
-					(ft_tablen(cmd) - flag + 1))))
-		return ;
-	if (env && (cmd_tmp = resize_cmd(cmd, cmd_tmp, flag)))
-	{
-		path_str = get_env_content(env, "PATH");
-		if (path_str && (path = ft_strsplit(path_str, ':')))
-		{
-			if (path && (cmd_path = get_cmd_path(cmd_tmp[0], path)))
-				exe_fork(env, cmd_tmp, cmd_path);
-			else
-				ft_putendl("error fork_redirection()");
-			free_fork(cmd_tmp, path, cmd_path, path_str);
-		}
-	}
 }
 
 int				ft_occ_nb(char *s, char c)

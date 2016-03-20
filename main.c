@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/19 16:48:26 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/20 15:09:36 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		**manage_cmd(char **env, char **cmd, char **path)
 	}
 	else
 		manage_exe_cmd(env, cmd, path);
-	free_tab(path); // free
+	free_tab(path);
 	return (env);
 }
 
@@ -50,9 +50,9 @@ static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 	{
 		if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 		{
-			free_tab(env); // free
-			free_tab(cmd); // free
-			free_tab(path); // free
+			free_tab(env);
+			free_tab(cmd);
+			free_tab(path);
 			exit(0);
 		}
 		env = manage_cmd(env, cmd, path);
@@ -78,23 +78,21 @@ static void		manage_stdin(char **env, char **path, int count)
 			ft_strdel(&line);
 			while (cmd[++i])
 				env = parse_cmd(env, cmd, cmd[i], path);
-			free(cmd); // free
+			free(cmd);
 			cmd = NULL;
-			free_tab(path); // free
+			free_tab(path);
 			ft_putchar('\n');
 		}
-		else
-			ft_putendl_fd("error: wrong usage", 2);
 		count++;
 	}
-	free_tab(env); // free
+	free_tab(env);
 }
 
 int				main(int ac, char **av, char **env)
 {
 	char	**env_cpy;
 	char	**path_cpy;
-	int		count; // for PWD and OLDPWD var
+	int		count;
 
 	count = 0;
 	env_cpy = NULL;
