@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:21:19 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 15:30:21 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 14:44:58 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int		ft_multi_strcmp(char *s, char *s1, char *s2);
 void	free_tab(char **tab);
 void	free_ptrs(char **env_cpy, char **cmd, char **path_cpy);
 void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str);
+int		ft_cnt_char(char *s, char c);
 
 #endif

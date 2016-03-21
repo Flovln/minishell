@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 18:35:30 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 10:03:39 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		prompt_path(char *home, char *buf)
 	color(RED, " \n$> ");
 	color(RESET, "");
 }
-/* SEGFAULT WHEN PWD = NULL ----> Fixed */
+
 static char		**update_pwd(char **env, char *str, char *wd)
 {
 	int		i;
@@ -62,13 +62,8 @@ static char		**update_pwd(char **env, char *str, char *wd)
 		while (env[++i])
 			if (!ft_strncmp(env[i], str, ft_strlen(str)) && wd)
 			{
-//				printf("2\n");
 				tmp = ft_strdup(env[i]);
-//				printf("3\n");
-//				printf("str -> |%s|\n", str);
-//				printf("wd -> |%s|\n", wd);
 				tmp = ft_strjoin(str, wd);
-//				printf("4\n");
 				env[i] = tmp;
 				return (env);
 			}

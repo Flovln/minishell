@@ -6,22 +6,12 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:16:11 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 16:10:07 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 10:13:12 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	**ignore_env(char **env, int len)
-{
-	if (len != 2)
-	{
-		ft_putendl_fd("error: too few arguments", 2);
-		return (env);
-	}
-	return (NULL);
-}
-*/
+
 void	print_env(char **env)
 {
 	if (env && *env)

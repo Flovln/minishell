@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 13:09:52 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 14:54:26 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,26 @@ char			**tab_dup(char **tab)
 		return (tmp);
 	}
 	return (NULL);
+}
+
+int				ft_cnt_char(char *s, char c)
+{
+	int i;
+	int count;
+
+	i = 0;
+	if (s && c)
+	{
+		count = 0;
+		while (s[i])
+		{
+			if (s[i] == c)
+				count++;
+			i++;
+		}
+		return (count);
+	}
+	return (0);
 }
 
 int				ft_occ_nb(char *s, char c)

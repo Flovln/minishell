@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 17:48:38 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 16:36:58 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ char			*get_cmd_path(char *cmd, char **path)
 		while (*path)
 		{
 			if ((dir = opendir(*path)))
+			{
 				while ((ret = readdir(dir)))
 					if (!ft_strcmp(ret->d_name, cmd))
 					{
 						closedir(dir);
 						return (ft_strdup(*path));
 					}
-			closedir(dir);
+				closedir(dir);
+			}
 			path++;
 		}
 	}
@@ -49,11 +51,13 @@ void			exe_fork(char **env, char **cmd, char *cmd_path)
 {
 	pid_t	pid;
 	char	*tmp;
-	char	*rights;
 
-	tmp = ft_strjoin(cmd_path, "/");
-	rights = ft_strjoin(tmp, cmd[0]);
-	if (access(rights, X_OK) != -1)
+	tmp = NULL;
+	if (cmd_path)
+		tmp = ft_strjoin(cmd_path, "/");
+	else
+		tmp = ft_strdup("./");
+	if (access(ft_strjoin(tmp, cmd[0]), X_OK) != -1)
 	{
 		pid = fork();
 		if (pid > 0)
@@ -70,12 +74,12 @@ void			exe_fork(char **env, char **cmd, char *cmd_path)
 	else
 		norights_error(cmd);
 	ft_strdel(&tmp);
-	ft_strdel(&rights);
 	free_tab(cmd);
 }
 
 static void		manage_error(char **cmd)
 {
+	printf("TEST\n");
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putendl_fd(cmd[0], 2);
 }

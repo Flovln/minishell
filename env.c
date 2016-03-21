@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 16:08:07 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 10:13:32 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ static char		**ignore_opt(char **env, char **cmd, char **tmp)
 	len = ft_tablen(cmd);
 	if (len == 2)
 	{
-		free_tab(env); //tmp
-//		env = ignore_env(env, len);
-		return (tmp); // tmp instead of env
+		free_tab(env);
+		return (tmp);
 	}
 	else if (len > 2)
 		fork_redirection(NULL, cmd, 2);
