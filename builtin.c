@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:45:40 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/18 19:48:38 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 17:57:44 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,23 @@ int		is_builtin(char *cmd)
 		return (0);
 }
 
-char	**do_builtin(char **cmd, char **env)
+char	**do_builtin(char **cmd, char **env, int flag)
 {
 	char	**new_env;
 	int		i;
 
 	i = 0;
 	new_env = NULL;
-	if (!ft_strcmp(cmd[0], "cd"))
-		new_env = do_cd(cmd, env);
-	else if (!ft_strcmp(cmd[0], "setenv"))
-		new_env = do_setenv(env, cmd);
-	else if (!ft_strcmp(cmd[0], "unsetenv"))
-		new_env = do_unsetenv(env, cmd);
-	else
-		new_env = do_env(env, cmd);
+	if (flag == 0)
+	{
+		if (!ft_strcmp(cmd[0], "cd"))
+			new_env = do_cd(cmd, env);
+		else if (!ft_strcmp(cmd[0], "setenv"))
+			new_env = do_setenv(env, cmd);
+		else if (!ft_strcmp(cmd[0], "unsetenv"))
+			new_env = do_unsetenv(env, cmd, 0);
+		else
+			new_env = do_env(env, cmd);
+	}
 	return (new_env);
 }

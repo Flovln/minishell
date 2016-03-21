@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/20 15:09:36 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 17:53:31 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char		**manage_cmd(char **env, char **cmd, char **path)
 {
 	if (is_builtin(cmd[0]) > 0)
 	{
-		env = do_builtin(cmd, env);
+		env = do_builtin(cmd, env, 0);
 		return (env);
 	}
 	else
@@ -50,7 +50,7 @@ static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 	{
 		if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 		{
-			free_tab(env);
+//			free_tab(env);
 			free_tab(cmd);
 			free_tab(path);
 			exit(0);

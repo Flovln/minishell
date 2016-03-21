@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 10:20:20 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 17:40:57 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ static char		**unset_env(char **env, int len, int i)
 	return (new_env);
 }
 
-char			**do_unsetenv(char **env, char **cmd)
+char			**do_unsetenv(char **env, char **cmd, int flag)
 {
 	int		i;
 	int		len;
 
 	i = 0;
 	len = ft_tablen(env);
-	if (ft_tablen(cmd) < 2)
+	if (ft_tablen(cmd) != 2 && flag == 0)
 	{
 		ft_putendl_fd("error: wrong arguments number", 2);
 		return (env);
