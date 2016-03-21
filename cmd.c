@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 18:00:49 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 19:02:09 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ char			*get_cmd_path(char *cmd, char **path)
 			path++;
 		}
 	}
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(cmd, 2);
 	return (NULL);
 }
 
 static void		norights_error(char **cmd, char *tmp)
 {
+	ft_putstr("TEST\n");
 	ft_putstr_fd("error: permission denied: ", 2); // /bin/<exe.introuvabe>
 	ft_putendl_fd(cmd[0], 2);
 	ft_strdel(&tmp);
@@ -105,6 +104,8 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 		}
 		else if ((cmd_path = get_cmd_path(cmd[0], path)) != NULL)
 			exe_fork(env, cmd, cmd_path);
+		else
+			manage_error(cmd);
 	}
 	else
 		manage_error(cmd);

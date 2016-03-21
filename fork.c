@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 12:55:37 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 17:57:52 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/21 18:56:33 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,15 @@ void	fork_bis(char **env, char **cmd_tmp, char *cmd_path, char **path)
 	{
 		if (ft_cnt_char(cmd_tmp[0], '/'))
 			exe_fork(env, cmd_tmp, NULL);
+//		else
+//			ft_putendl_fd("command not found", 2);
 	}
 	else if (path && cmd_path)
 		exe_fork(env, cmd_tmp, cmd_path);
 	else if (ft_cnt_char(cmd_tmp[0], '/'))
 		exe_fork(env, cmd_tmp, NULL);
+	else
+		ft_putendl_fd("No such file or directory", 2);
 }
 
 void	fork_redirection(char **env, char **cmd, int flag)
