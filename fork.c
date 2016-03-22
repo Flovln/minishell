@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 12:55:37 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/22 14:02:56 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:17:04 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	fork_redirection(char **env, char **cmd, int flag)
 	if ((cmd_tmp = resize_cmd(cmd, cmd_tmp, flag)))
 	{
 		if (is_builtin(cmd_tmp[0]))
-			do_builtin(cmd_tmp, env, 0);
+			env = do_builtin(cmd_tmp, env, 0);
 		fork_bis(env, cmd_tmp, cmd_path, path);
 		free_fork(cmd_tmp, path, cmd_path, path_str);
 	}
 	else
-		do_builtin(cmd_tmp, env, 1);
+		env = do_builtin(cmd_tmp, env, 1);
 }

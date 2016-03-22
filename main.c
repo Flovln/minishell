@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/22 14:01:07 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:17:30 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static char		**parse_cmd(char **env, char **cmd, char *line, char **path)
 	{
 		if (!(ft_strcmp(cmd[0], "exit")) && ft_tablen(cmd) == 1)
 		{
-//			free_tab(env);
 			free_tab(cmd);
 			free_tab(path);
 			exit(0);
