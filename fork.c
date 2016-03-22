@@ -70,7 +70,7 @@ void	fork_redirection(char **env, char **cmd, int flag)
 		if (is_builtin(cmd_tmp[0]))
 			env = do_builtin(cmd_tmp, env, 0);
 		fork_bis(env, cmd_tmp, cmd_path, path);
-		free_fork(cmd_tmp, path, cmd_path, path_str);
+		free_fork(path, cmd_path, path_str);
 	}
 	else
 		env = do_builtin(cmd_tmp, env, 1);

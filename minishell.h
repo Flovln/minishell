@@ -55,7 +55,7 @@ char	**tab_dup(char **tab);
 int		ft_multi_strcmp(char *s, char *s1, char *s2);
 void	free_tab(char **tab);
 void	free_ptrs(char **env_cpy, char **cmd, char **path_cpy);
-void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str);
+void	free_fork(char **path, char *cmd_path, char *path_str);
 int		is_in(char **env, char *cmd);
 
 #endif

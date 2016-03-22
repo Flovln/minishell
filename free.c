@@ -12,9 +12,8 @@
 
 #include "minishell.h"
 
-void	free_fork(char **cmd_tmp, char **path, char *cmd_path, char *path_str)
+void	free_fork(char **path, char *cmd_path, char *path_str)
 {
-	free_tab(cmd_tmp);
 	free_tab(path);
 	ft_strdel(&cmd_path);
 	ft_strdel(&path_str);
