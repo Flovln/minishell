@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:16:11 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 10:13:12 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:29:39 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*get_env_content(char **env, char *str)
 		{
 			if (!ft_strncmp(*env, str, ft_strlen(str)))
 			{
-				start = ft_strlen(str) + 1;
+				start = ft_strlen(str);
 				tmp = ft_strsub(*env, start, ft_strlen(*env) - start);
 				content = ft_strdup(tmp);
 				ft_strdel(&tmp);

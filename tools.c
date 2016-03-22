@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 11:07:01 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 14:54:26 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:37:25 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,6 @@ char			**tab_dup(char **tab)
 		return (tmp);
 	}
 	return (NULL);
-}
-
-int				ft_cnt_char(char *s, char c)
-{
-	int i;
-	int count;
-
-	i = 0;
-	if (s && c)
-	{
-		count = 0;
-		while (s[i])
-		{
-			if (s[i] == c)
-				count++;
-			i++;
-		}
-		return (count);
-	}
-	return (0);
 }
 
 int				ft_occ_nb(char *s, char c)
@@ -94,4 +74,19 @@ char			*ft_strcdup(char *s, char c)
 		return (ft_strndup(s, i));
 	}
 	return (NULL);
+}
+
+int				is_in(char **env, char *cmd)
+{
+	struct dirent	*ret;
+	DIR				*dir;
+	char			*cur;
+
+	cur = NULL;
+	cur = get_env_content(env, "PWD=");
+	if ((dir = opendir(cur)))
+		while ((ret = readdir(dir)))
+			if (!ft_strcmp(cmd, ret->d_name))
+				return (1);
+	return (0);
 }

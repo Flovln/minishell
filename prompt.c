@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 14:57:53 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 10:03:39 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:27:13 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		prompt_user(char **env)
 {
 	char *user;
 
-	user = get_env_content(env, "USER");
+	user = get_env_content(env, "USER=");
 	if (user)
 	{
 		ft_putstr("# ");
@@ -79,13 +79,13 @@ void			prompt(char **env, int count)
 	char	*pwd_str;
 
 	if (count > 0)
-		pwd_str = get_env_content(env, "PWD");
+		pwd_str = get_env_content(env, "PWD=");
 	else
 		pwd_str = ft_strnew(200);
 	ft_bzero(buf, 100);
 	getcwd(buf, 100);
 	env = update_pwd(env, "PWD=", buf);
-	home = get_env_content(env, "HOME");
+	home = get_env_content(env, "HOME=");
 	prompt_user(env);
 	prompt_path(home, buf);
 	if (count > 0)

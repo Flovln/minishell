@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:01:38 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/19 13:59:14 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:26:34 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		no_arg(char **env)
 	home = NULL;
 	if (env && *env)
 	{
-		home = get_env_content(env, "HOME");
+		home = get_env_content(env, "HOME=");
 		if (home)
 		{
 			chdir(home);
@@ -58,7 +58,7 @@ static char		*user_root(char **env, char *cmd)
 	char *cmd_cpy;
 
 	cmd_cpy = NULL;
-	home = get_env_content(env, "HOME");
+	home = get_env_content(env, "HOME=");
 	if (!cmd[1])
 	{
 		ft_strdel(&cmd);

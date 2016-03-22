@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:33:17 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 19:02:09 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:41:52 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,15 @@ char			*get_cmd_path(char *cmd, char **path)
 	return (NULL);
 }
 
-static void		norights_error(char **cmd, char *tmp)
+static void		norights_error(char **env, char **cmd, char *tmp)
 {
-	ft_putstr("TEST\n");
-	ft_putstr_fd("error: permission denied: ", 2); // /bin/<exe.introuvabe>
-	ft_putendl_fd(cmd[0], 2);
+	if (access(cmd[0], X_OK) == -1 && is_in(env, cmd[0]))
+	{
+		ft_putstr_fd("error: permission denied: ", 2);
+		ft_putendl_fd(cmd[0], 2);
+	}
+	else
+		ft_putendl_fd("command not found", 2);
 	ft_strdel(&tmp);
 	free_tab(cmd);
 }
@@ -73,7 +77,7 @@ void			exe_fork(char **env, char **cmd, char *cmd_path)
 		}
 	}
 	else
-		norights_error(cmd, tmp);
+		norights_error(env, cmd, tmp);
 }
 
 static void		manage_error(char **cmd)
@@ -91,7 +95,7 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 	cmd_path = NULL;
 	if (cmd[0][2] != '/')
 	{
-		if ((ft_strstr(cmd[0], "/") && cmd[0][1]))
+		if ((ft_strstr(cmd[0], "/") && ft_strlen(cmd[0]) > 1))
 		{
 			tmp = cmd[0];
 			i = ft_strlen(cmd[0]);
@@ -107,6 +111,4 @@ void			manage_exe_cmd(char **env, char **cmd, char **path)
 		else
 			manage_error(cmd);
 	}
-	else
-		manage_error(cmd);
 }

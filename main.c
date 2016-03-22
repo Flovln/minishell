@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/21 17:53:31 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 14:01:07 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char			**parse_path(char **env)
 	char	**split_path;
 
 	split_path = NULL;
-	path_str = get_env_content(env, "PATH");
+	path_str = get_env_content(env, "PATH=");
 	if (path_str)
 	{
 		split_path = ft_strsplit(path_str, ':');
