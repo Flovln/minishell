@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:54:59 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/22 18:18:28 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 19:02:31 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static char		**unset_opt(char **env, char **cmd, char **tmp)
 {
 	int	len;
 
+	len = ft_tablen(cmd);
 	if (len == 2)
 		ft_putendl_fd("error: too few arguments", 2);
 	else if (len == 3)
@@ -35,12 +36,12 @@ static char		**ignore_opt(char **env, char **cmd, char **tmp)
 	len = ft_tablen(cmd);
 	if (len == 2)
 	{
-		free_tab(tmp); // env
-		return (env); // tmp
+		free_tab(tmp);
+		return (env);
 	}
 	else if (len > 2)
 		fork_redirection(NULL, cmd, 2);
-	free_tab(tmp);
+//	free_tab(tmp); free error
 	return (env);
 }
 
