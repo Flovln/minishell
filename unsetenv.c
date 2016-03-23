@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 12:09:28 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/22 18:18:06 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:41:42 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static char		**remove_str(char **env, char **new_env, int i, int len)
 		j++;
 	}
 	new_env[j] = NULL;
-//	free_tab(env); segfault source
 	return (new_env);
 }
 
