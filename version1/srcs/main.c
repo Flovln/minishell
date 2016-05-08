@@ -70,7 +70,7 @@ static void		manage_stdin(char **env, char **path, int count)
 	while (1)
 	{
 		prompt(env, count);
-		if (get_next_line(0, &line) != 1)
+		if (get_next_line(0, &line) > 0)
 		{
 			i = -1;
 			cmd = ft_strsplit(line, ';');
