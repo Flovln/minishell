@@ -56,7 +56,6 @@ static char		**remove_str(char **env, char **new_env, int i, int len)
 		j++;
 	}
 	new_env[j] = NULL;
-//	free_tab(env); segfault source
 	return (new_env);
 }
 

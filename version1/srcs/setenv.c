@@ -82,7 +82,6 @@ char			**do_setenv(char **env, char **cmd)
 			if (!(new_env = (char **)malloc(sizeof(char *) * (len + 2))))
 				return (NULL);
 			new_env = add_str(env, new_env, cmd, len);
-//			free_tab(env); //segfault source
 			return (new_env);
 		}
 		new_env = update_str(env, cmd, i, len);
