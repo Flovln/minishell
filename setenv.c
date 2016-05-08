@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:05:03 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/22 18:17:46 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:41:27 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char			**do_setenv(char **env, char **cmd)
 			if (!(new_env = (char **)malloc(sizeof(char *) * (len + 2))))
 				return (NULL);
 			new_env = add_str(env, new_env, cmd, len);
-//			free_tab(env); //segfault source
 			return (new_env);
 		}
 		new_env = update_str(env, cmd, i, len);

@@ -6,7 +6,7 @@
 /*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 10:34:00 by fviolin           #+#    #+#             */
-/*   Updated: 2016/03/22 18:17:30 by fviolin          ###   ########.fr       */
+/*   Updated: 2016/03/23 16:12:08 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void		manage_stdin(char **env, char **path, int count)
 	while (1)
 	{
 		prompt(env, count);
-		if (get_next_line(0, &line) == 1)
+		if (get_next_line(0, &line) != 1) // != -1 pour eviter boucle infinie
 		{
 			i = -1;
 			cmd = ft_strsplit(line, ';');
